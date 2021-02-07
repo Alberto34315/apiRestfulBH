@@ -22,7 +22,9 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "training")
@@ -38,18 +40,19 @@ public class training {
 	
 
 	@Column(name = "LISTEXERCISE")
+	@JsonManagedReference
     @JoinTable(
             name = "listexercise",
             joinColumns = @JoinColumn(name = "FK_TRAINING", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "FK_EXERCISE", nullable = false)
     )
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties("t")
 	private List<exercise> exercises;
 
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IDUSER")
 	@JsonIgnoreProperties("lt")
 	private user creator;

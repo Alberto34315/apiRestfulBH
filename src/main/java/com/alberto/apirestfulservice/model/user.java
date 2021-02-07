@@ -44,7 +44,7 @@ public class user {
 	private String avatar;
 
 	
-	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties("creator")
 	private List<training> lt;

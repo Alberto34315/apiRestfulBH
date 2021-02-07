@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +47,7 @@ public class exercise {
 	private String photo;
 	
 	
-	@ManyToMany(mappedBy = "exercises")
+	@ManyToMany(fetch = FetchType.EAGER,mappedBy = "exercises")
 	@JsonIgnoreProperties("exercises")
 	private List<training> t;
 
