@@ -38,7 +38,6 @@ public class training {
 	
 
 	@Column(name = "LISTEXERCISE")
-	@JsonIgnoreProperties("t")
     @JoinTable(
             name = "listexercise",
             joinColumns = @JoinColumn(name = "FK_TRAINING", nullable = false),
@@ -46,11 +45,13 @@ public class training {
     )
     @ManyToMany(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnoreProperties("t")
 	private List<exercise> exercises;
 
-	@JsonIgnoreProperties("lt")
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDUSER")
+	@JsonIgnoreProperties("lt")
 	private user creator;
 
 

@@ -45,8 +45,9 @@ public class exercise {
 	@Column(name = "photo")
 	private String photo;
 	
-	@JsonIgnoreProperties("exercises")
+	
 	@ManyToMany(mappedBy = "exercises")
+	@JsonIgnoreProperties("exercises")
 	private List<training> t;
 
 
@@ -111,14 +112,6 @@ public class exercise {
 	public String toString() {
 		return "exercise [id=" + id + ", nameExercise=" + nameExercise + ", description=" + description + ", repTime="
 				+ repTime + ", photo=" + photo + ", t=" + t + "]";
-	}
-
-	public exercise(String nameExercise, String description, int repTime, String photo) {
-		super();
-		this.nameExercise = nameExercise;
-		this.description = description;
-		this.repTime = repTime;
-		this.photo = photo;
 	}
 
 }

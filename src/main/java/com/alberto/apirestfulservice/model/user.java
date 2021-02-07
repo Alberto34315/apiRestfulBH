@@ -43,9 +43,10 @@ public class user {
 	@Column(name = "avatar")
 	private String avatar;
 
-	@JsonIgnoreProperties("creator")
+	
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnoreProperties("creator")
 	private List<training> lt;
 
 	
