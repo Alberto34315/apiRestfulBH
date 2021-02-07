@@ -24,7 +24,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "training")
@@ -40,7 +39,6 @@ public class training {
 	
 
 	@Column(name = "LISTEXERCISE")
-	@JsonManagedReference
     @JoinTable(
             name = "listexercise",
             joinColumns = @JoinColumn(name = "FK_TRAINING", nullable = false),
