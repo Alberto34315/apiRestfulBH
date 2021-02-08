@@ -47,6 +47,15 @@ public class userService {
 			return new ArrayList<user>();
 		}
 	}
+	public user searchCredentials(String email,String pass) {
+		user item = repository.searchCredentials(email, pass);
+
+		if (item!=null) {
+			return item;
+		} else {
+			return new user();
+		}
+	}
 	public user createUser(user entity) {
 		entity = repository.save(entity);
 		return entity;

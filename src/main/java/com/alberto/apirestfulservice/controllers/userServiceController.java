@@ -50,6 +50,12 @@ public class userServiceController {
 
 			return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
 		}
+		@GetMapping("/search/email/{email}/{pass}")
+		public ResponseEntity<user> searchCredentials(@PathVariable("email")String email, @PathVariable("pass")String pass) {
+			user entity = service.searchCredentials(email, pass);
+
+			return new ResponseEntity<user>(entity, new HttpHeaders(), HttpStatus.OK);
+		}
 	   @PostMapping
 	    public ResponseEntity<user> createItem(@Valid @RequestBody user myItem){
 	    	user created = service.createUser(myItem);
