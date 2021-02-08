@@ -56,6 +56,15 @@ public class userService {
 			return new user();
 		}
 	}
+	public user searchEmail(String email) {
+		user item = repository.searchEmail(email);
+
+		if (item!=null) {
+			return item;
+		} else {
+			return new user();
+		}
+	}
 	public user createUser(user entity) {
 		entity = repository.save(entity);
 		return entity;
