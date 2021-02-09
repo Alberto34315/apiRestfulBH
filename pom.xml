@@ -63,7 +63,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.carlosserrano.apirestfulservice.AppMain</mainClass>
+                            <mainClass>com.alberto.apirestfulservice.AppMain</mainClass>
                         </manifest>                      
                     </archive>
                 </configuration>
