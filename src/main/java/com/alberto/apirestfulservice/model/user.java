@@ -1,6 +1,7 @@
 package com.alberto.apirestfulservice.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -56,6 +57,9 @@ public class user {
 	}
 
 	public void setT(List<training> t) {
+		if(t==null) {
+			t=new ArrayList<training>();
+		}
 		this.lt = t;
 		for (training training : t) {
 			training.setCreator(this);
