@@ -40,7 +40,7 @@ public class user {
 	private String pass;
 
 	@NotBlank
-	@Column(name = "avatar")
+	@Column(name = "avatar",columnDefinition="TEXT")
 	private String avatar;
 
 	

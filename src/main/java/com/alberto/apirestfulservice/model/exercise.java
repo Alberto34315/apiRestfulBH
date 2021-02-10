@@ -43,7 +43,7 @@ public class exercise {
 	private int repTime;
 
 	@NotBlank
-	@Column(name = "photo")
+	@Column(name = "photo",columnDefinition="TEXT")
 	private String photo;
 	
 	
