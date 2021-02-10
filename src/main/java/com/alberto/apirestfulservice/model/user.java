@@ -41,24 +41,21 @@ public class user {
 	private String pass;
 
 	@NotBlank
-	@Column(name = "avatar",columnDefinition="TEXT")
+	@Column(name = "avatar", columnDefinition = "TEXT")
 	private String avatar;
 
-	
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties("creator")
 	private List<training> lt;
-
-	
 
 	public List<training> getT() {
 		return lt;
 	}
 
 	public void setT(List<training> t) {
-		if(t==null) {
-			t=new ArrayList<training>();
+		if (t == null) {
+			t = new ArrayList<training>();
 		}
 		this.lt = t;
 		for (training training : t) {

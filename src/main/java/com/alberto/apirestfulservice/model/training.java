@@ -32,100 +32,88 @@ public class training {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotBlank
-    @Column(name = "title")
+	@Column(name = "title")
 	private String title;
-	
 
 	@Column(name = "LISTEXERCISE")
-    @JoinTable(
-            name = "listexercise",
-            joinColumns = @JoinColumn(name = "FK_TRAINING", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "FK_EXERCISE", nullable = false)
-    )
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinTable(name = "listexercise", joinColumns = @JoinColumn(name = "FK_TRAINING", nullable = false), inverseJoinColumns = @JoinColumn(name = "FK_EXERCISE", nullable = false))
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties("t")
 	private List<exercise> exercises;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "IDUSER")
+	@JoinColumn(name = "IDUSER")
 	@JsonIgnoreProperties("lt")
 	private user creator;
 
-
-    @Column(name = "time")
+	@Column(name = "time")
 	private Long time;
-
-	
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public List<exercise> getExercises() {
 		return exercises;
 	}
 
-
 	public void setExercises(List<exercise> exercises) {
+		if (exercises == null) {
+			exercises = new ArrayList<exercise>();
+		}
 		this.exercises = exercises;
 		for (exercise exercise : exercises) {
-			List<training> list=exercise.getT();
-			if(list==null) {
-				list=new ArrayList<training>();
+			List<training> list = exercise.getT();
+			if (list == null) {
+				list = new ArrayList<training>();
 			}
-			if(!list.contains(this)) {
+			if (!list.contains(this)) {
 				list.add(this);
 			}
 		}
 	}
 
-
 	public user getCreator() {
 		return creator;
 	}
 
-
 	public void setCreator(user creator) {
-		this.creator = creator;
-		List<training> list=this.creator.getT();
-		if(list==null) {
-			list=new ArrayList();
+		if (creator == null) {
+			creator = new user();
 		}
-		if(!list.contains(this)) {
+		this.creator = creator;
+		List<training> list = this.creator.getT();
+		if (list == null) {
+			list = new ArrayList();
+		}
+		if (!list.contains(this)) {
 			list.add(this);
 		}
 	}
-
 
 	public Long getTime() {
 		return time;
 	}
 
-
 	public void setTime(Long time) {
 		this.time = time;
 	}
-
 
 	@Override
 	public String toString() {
@@ -133,7 +121,4 @@ public class training {
 				+ ", time=" + time + "]";
 	}
 
-	
-	
-	
 }

@@ -97,6 +97,9 @@ public class exercise {
 	}
 
 	public void setT(List<training> t) {
+		if(t==null) {
+			t = new ArrayList<training>();
+		}
 		this.t = t;
 		for (training training : t) {
 			List<exercise> list=training.getExercises();
