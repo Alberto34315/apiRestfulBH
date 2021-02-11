@@ -79,7 +79,7 @@ public class trainingService {
 		Optional<training> item = repository.findById(id);
 
 		if (item.isPresent()) {
-			repository.deleteById(id);
+			repository.deleteFromTraining(id);
 		} else {
 			throw new RecordNotFoundException("No item record exist for given id", id);
 		}
