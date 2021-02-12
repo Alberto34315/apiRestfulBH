@@ -15,5 +15,8 @@ public interface exerciseRepository extends JpaRepository<exercise, Long> {
 
 	@Query(value = "SELECT * FROM exercise AS i WHERE i.nameExercise LIKE %?1%", nativeQuery = true)
 	public List<exercise> getByTitle(String title);
+	
+	@Query(value = "DELETE FROM exercise AS i WHERE i.id = ?1 RETURNING id", nativeQuery = true)
+    public Long deleteFromExercise (Long code);
 
 }
