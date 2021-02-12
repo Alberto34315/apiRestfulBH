@@ -30,23 +30,23 @@ public class exercise {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+
 	@Column(name = "nameExercise")
 	private String nameExercise;
 
-	@NotBlank
+
 	@Column(name = "description")
 	private String description;
 
-	@NotBlank
+
 	@Column(name = "type")
 	private String type;
-	
-	@NotBlank
+
+
 	@Column(name = "repTime")
 	private int repTime;
 
-	@NotBlank
+
 	@Column(name = "photo",columnDefinition="TEXT")
 	private String photo;
 	
