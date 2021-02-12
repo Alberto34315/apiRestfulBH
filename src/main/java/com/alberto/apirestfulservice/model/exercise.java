@@ -39,6 +39,10 @@ public class exercise {
 	private String description;
 
 	@NotBlank
+	@Column(name = "type")
+	private String type;
+	
+	@NotBlank
 	@Column(name = "repTime")
 	private int repTime;
 
@@ -94,6 +98,14 @@ public class exercise {
 
 	public List<training> getT() {
 		return t;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setT(List<training> t) {
