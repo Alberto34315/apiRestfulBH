@@ -59,11 +59,23 @@ public class trainingService {
             return new ArrayList<training>();
         }
     }
+	
+	public List<training> getByTitleFromUser(String title,Long code) {
+        List<training> itemList = repository.getByTitleFromUser(title,code);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
+	
 	public training createTraining(training entity) {
 		entity = repository.save(entity);
 		return entity;
 	}
 
+	
 	public training UpdateTraining(training entity) throws RecordNotFoundException {
 
 		if (entity.getId() != null) {

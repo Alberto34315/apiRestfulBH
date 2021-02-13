@@ -55,6 +55,12 @@ public class trainingServiceController {
  
         return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
     }
+	@GetMapping("/search/{title}/user/{id}")
+    public ResponseEntity<List<training>> getByTitleFromUser(@PathVariable("title") String title,@PathVariable("id") Long id) {
+    	List<training> list = service.getByTitleFromUser(title,id);
+ 
+        return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
 	@PostMapping
 	public ResponseEntity<training> createItem(@Valid @RequestBody training myItem) {
 		training created = service.createTraining(myItem);

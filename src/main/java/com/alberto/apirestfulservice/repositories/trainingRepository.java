@@ -12,12 +12,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface trainingRepository extends JpaRepository<training, Long> {
 	
-	@Query(value="SELECT * FROM training AS i WHERE i.title LIKE %?1%",
-		            nativeQuery=true)
+	@Query(value="SELECT * FROM training AS i WHERE i.title LIKE %?1%", nativeQuery=true)
 		    public List<training> getByTitle(String title);
 		    
-		    @Query(value="SELECT * FROM training AS i WHERE i.iduser=?1",
-		            nativeQuery=true)
+    @Query(value="SELECT * FROM training AS i WHERE i.title LIKE %?1% AND i.iduser=?2", nativeQuery=true)
+		    public List<training> getByTitleFromUser(String title,Long code);
+		    
+    @Query(value="SELECT * FROM training AS i WHERE i.iduser=?1", nativeQuery=true)
 		    public List<training> getAllTrainingsByIdUser(Long code);
 		    
    @Query(value = "DELETE FROM training AS i WHERE i.id = ?1 RETURNING id", nativeQuery = true)
