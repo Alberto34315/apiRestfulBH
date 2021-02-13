@@ -16,6 +16,10 @@ public interface trainingRepository extends JpaRepository<training, Long> {
 		            nativeQuery=true)
 		    public List<training> getByTitle(String title);
 		    
+		    @Query(value="SELECT * FROM training AS i WHERE i.iduser=?1",
+		            nativeQuery=true)
+		    public List<training> getAllTrainingsByIdUser(Long code);
+		    
    @Query(value = "DELETE FROM training AS i WHERE i.id = ?1 RETURNING id", nativeQuery = true)
 		    public Long deleteFromTraining (Long code);
    

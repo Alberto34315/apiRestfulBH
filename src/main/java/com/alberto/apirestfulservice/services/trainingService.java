@@ -30,6 +30,15 @@ public class trainingService {
 			return new ArrayList<training>();
 		}
 	}
+	public List<training> getAllTrainingsByIdUser(Long id) {
+		List<training> itemList = repository.getAllTrainingsByIdUser(id);
+
+		if (itemList.size() > 0) {
+			return itemList;
+		} else {
+			return new ArrayList<training>();
+		}
+	}
 
 	public training getTrainingById(Long id) throws RecordNotFoundException {
 		Optional<training> item = repository.findById(id);

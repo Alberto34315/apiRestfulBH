@@ -43,6 +43,12 @@ public class trainingServiceController {
 
 		return new ResponseEntity<training>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
+	@GetMapping("/user/{id}")
+	public ResponseEntity<List<training>> getAllTrainingsByIdUser(@PathVariable("id") Long id) throws RecordNotFoundException {
+		List<training> list = service.getAllTrainingsByIdUser(id);
+
+		return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
+	}
 	@GetMapping("/search/{title}")
     public ResponseEntity<List<training>> getItemsByTitle(@PathVariable("title") String title) {
     	List<training> list = service.getItemsByTitle(title);
