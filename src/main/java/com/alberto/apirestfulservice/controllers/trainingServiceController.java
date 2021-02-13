@@ -67,4 +67,10 @@ public class trainingServiceController {
 		service.deleteTrainingById(id);
 		return HttpStatus.ACCEPTED;
 	}
+	
+	@DeleteMapping("/{idT}/exercise/{idE}")
+	public HttpStatus deleteFromListExercise(@PathVariable("idT") Long idT, @PathVariable("idE") Long idE) throws RecordNotFoundException {
+		service.deleteFromExercise(idT, idE);
+		return HttpStatus.ACCEPTED;
+	}
 }

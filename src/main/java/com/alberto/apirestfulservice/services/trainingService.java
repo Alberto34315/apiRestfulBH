@@ -10,13 +10,17 @@ import org.springframework.stereotype.Service;
 import com.alberto.apirestfulservice.exception.RecordNotFoundException;
 import com.alberto.apirestfulservice.model.exercise;
 import com.alberto.apirestfulservice.model.training;
+import com.alberto.apirestfulservice.repositories.exerciseRepository;
 import com.alberto.apirestfulservice.repositories.trainingRepository;
 
 @Service
 public class trainingService {
 	@Autowired
 	trainingRepository repository;
-
+	
+	@Autowired
+	exerciseRepository exerR;
+	
 	public List<training> getAllTrainings() {
 		List<training> itemList = repository.findAll();
 
@@ -85,4 +89,13 @@ public class trainingService {
 		}
 	}
 
+	public void deleteFromExercise (Long idT, Long idE) throws RecordNotFoundException {
+		Optional<training> itemT = repository.findById(idT);
+		Optional<exercise> itemE = exerR.findById(idE);
+		if (itemT.isPresent() && itemE.isPresent()) {
+			repository.deleteFromListExercise(idT,idE);
+		} else {
+			throw new RecordNotFoundException("No item record exist for given id", idT);
+		}
+	}
 }

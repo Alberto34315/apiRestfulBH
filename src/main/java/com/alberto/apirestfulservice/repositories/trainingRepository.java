@@ -18,4 +18,7 @@ public interface trainingRepository extends JpaRepository<training, Long> {
 		    
    @Query(value = "DELETE FROM training AS i WHERE i.id = ?1 RETURNING id", nativeQuery = true)
 		    public Long deleteFromTraining (Long code);
+   
+   @Query(value = "delete from listexercise where fk_training=?1 and fk_exercise=?2", nativeQuery = true)
+   public Long deleteFromListExercise (Long idT, Long idE);
 }
