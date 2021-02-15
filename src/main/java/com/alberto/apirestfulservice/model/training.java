@@ -49,7 +49,7 @@ public class training {
 	@JoinColumn(name = "IDUSER")
 	@JsonIgnoreProperties("lt")
 	private user creator;
-
+	
 	@Column(name = "time")
 	private Long time;
 
@@ -98,7 +98,7 @@ public class training {
 			creator = new user();
 		}
 		this.creator = creator;
-		List<training> list = this.creator.getT();
+		List<training> list = this.creator.getLt();
 		if (list == null) {
 			list = new ArrayList();
 		}

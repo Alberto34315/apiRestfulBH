@@ -49,16 +49,36 @@ public class user {
 	@JsonIgnoreProperties("creator")
 	private List<training> lt;
 
-	public List<training> getT() {
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnoreProperties("creator")
+	private List<exercise> le;
+
+	
+	public List<exercise> getLe() {
+		return le;
+	}
+
+	public void setLe(List<exercise> le) {
+		if (le == null) {
+			le = new ArrayList<exercise>();
+		}
+		this.le = le;
+		for (exercise e : le) {
+			e.setCreator(this);
+		}
+	}
+
+	public List<training> getLt() {
 		return lt;
 	}
 
-	public void setT(List<training> t) {
-		if (t == null) {
-			t = new ArrayList<training>();
+	public void setLt(List<training> lt) {
+		if (lt == null) {
+			lt = new ArrayList<training>();
 		}
-		this.lt = t;
-		for (training training : t) {
+		this.lt = lt;
+		for (training training : lt) {
 			training.setCreator(this);
 		}
 	}

@@ -14,12 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -55,7 +57,29 @@ public class exercise {
 	@JsonIgnoreProperties("exercises")
 	private List<training> t;
 
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "IDUSER")
+	@JsonIgnoreProperties("le")
+	private user creator;
+	
+	public user getCreator() {
+		return creator;
+	}
 
+	public void setCreator(user creator) {
+		if (creator == null) {
+			creator = new user();
+		}
+		this.creator = creator;
+		List<exercise> list = this.creator.getLe();
+		if (list == null) {
+			list = new ArrayList();
+		}
+		if (!list.contains(this)) {
+			list.add(this);
+		}
+	}
 	public Long getId() {
 		return id;
 	}

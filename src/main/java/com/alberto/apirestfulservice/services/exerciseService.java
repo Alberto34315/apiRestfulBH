@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.alberto.apirestfulservice.exception.RecordNotFoundException;
 import com.alberto.apirestfulservice.model.exercise;
+import com.alberto.apirestfulservice.model.training;
 import com.alberto.apirestfulservice.model.user;
 import com.alberto.apirestfulservice.repositories.exerciseRepository;
 
@@ -26,7 +27,15 @@ public class exerciseService {
 			return new ArrayList<exercise>();
 		}
 	}
+	public List<exercise> getAllExercisesByIdUser(Long id) {
+		List<exercise> itemList = repository.getAllTrainingsByIdUser(id);
 
+		if (itemList.size() > 0) {
+			return itemList;
+		} else {
+			return new ArrayList<exercise>();
+		}
+	}
 	public exercise getExerciseById(Long id) throws RecordNotFoundException {
 		Optional<exercise> item = repository.findById(id);
 
@@ -38,6 +47,15 @@ public class exerciseService {
 	}
 	public List<exercise> getItemsByName(String title) {
 		List<exercise> itemList = repository.getByTitle(title);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<exercise>();
+        }
+    }
+	public List<exercise> getByTitleFromUser(String title,Long code) {
+        List<exercise> itemList = repository.getByTitleFromUser(title,code);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -64,6 +82,7 @@ public class exerciseService {
 				newEntity.setRepTime(entity.getRepTime());
 				newEntity.setPhoto(entity.getPhoto());
 				newEntity.setT(entity.getT());
+				newEntity.setCreator(entity.getCreator());
 				newEntity = repository.save(newEntity);
 
 				return newEntity;
