@@ -63,7 +63,7 @@ public class trainingServiceController {
     }
 	@PostMapping
 	public ResponseEntity<training> createItem(@Valid @RequestBody training myItem) {
-		System.out.println(myItem);
+		//System.out.println(myItem);
 		training created = service.createTraining(myItem);
 		return new ResponseEntity<training>(created, new HttpHeaders(), HttpStatus.OK);
 	}
