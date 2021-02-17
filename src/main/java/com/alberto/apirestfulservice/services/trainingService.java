@@ -72,6 +72,7 @@ public class trainingService {
 	
 	public training createTraining(training entity) {
 		//System.out.println(myItem);
+		entity.setExercises(entity.getExercises());
 		entity = repository.save(entity);
 		return entity;
 	}
