@@ -41,13 +41,13 @@ public class training {
 	@JoinTable(name = "listexercise", joinColumns = @JoinColumn(name = "FK_TRAINING", nullable = false), inverseJoinColumns = @JoinColumn(name = "FK_EXERCISE", nullable = false))
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnoreProperties("t")
+	@JsonIgnoreProperties(value={"t"},allowSetters = true)
 	private List<exercise> exercises;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IDUSER")
-	@JsonIgnoreProperties("lt")
+	@JsonIgnoreProperties(value={"lt"},allowSetters = true)
 	private user creator;
 	
 	@Column(name = "time")

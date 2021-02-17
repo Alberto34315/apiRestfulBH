@@ -54,13 +54,13 @@ public class exercise {
 	
 	
 	@ManyToMany(fetch = FetchType.EAGER,mappedBy = "exercises")
-	@JsonIgnoreProperties("exercises")
+	@JsonIgnoreProperties(value={"exercises"},allowSetters = true)
 	private List<training> t;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IDUSER")
-	@JsonIgnoreProperties("le")
+	@JsonIgnoreProperties(value={"le"},allowSetters = true)
 	private user creator;
 	
 	public user getCreator() {

@@ -46,12 +46,12 @@ public class user {
 
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnoreProperties("creator")
+	@JsonIgnoreProperties(value={"creator"},allowSetters = true)
 	private List<training> lt;
 
 	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnoreProperties("creator")
+	@JsonIgnoreProperties(value={"creator"},allowSetters = true)
 	private List<exercise> le;
 
 	
