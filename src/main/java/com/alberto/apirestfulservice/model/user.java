@@ -44,12 +44,12 @@ public class user {
 	@Column(name = "avatar", columnDefinition = "TEXT")
 	private String avatar;
 
-	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties(value={"creator"},allowSetters = true)
 	private List<training> lt;
 
-	@OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "creator", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnoreProperties(value={"creator"},allowSetters = true)
 	private List<exercise> le;
