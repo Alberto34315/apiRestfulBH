@@ -78,7 +78,7 @@ public class exerciseService {
 				// newEntity.setId(entity.getId());
 				newEntity.setNameExercise(entity.getNameExercise());
 				newEntity.setDescription(entity.getDescription());
-				newEntity.setType(entity.getDescription());
+				newEntity.setType(entity.getType());
 				newEntity.setRepTime(entity.getRepTime());
 				newEntity.setPhoto(entity.getPhoto());
 				newEntity.setT(entity.getT());
