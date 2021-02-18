@@ -63,6 +63,7 @@ public class exercise {
 	@JsonIgnoreProperties(value={"le"},allowSetters = true)
 	private user creator;
 	
+	
 	public user getCreator() {
 		return creator;
 	}

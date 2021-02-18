@@ -89,7 +89,6 @@ public class trainingService {
 				newEntity.setExercises(entity.getExercises());
 				newEntity.setCreator(entity.getCreator());
 				newEntity.setTime(entity.getTime());
-				newEntity.setExercises(entity.getExercises());
 				newEntity = repository.save(newEntity);
 
 				return newEntity;
