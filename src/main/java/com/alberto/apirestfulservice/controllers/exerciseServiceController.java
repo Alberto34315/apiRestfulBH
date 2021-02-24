@@ -40,7 +40,7 @@ public class exerciseServiceController {
 	@Autowired
 	exerciseService service;
 
-	@ApiOperation(value = "getAllExercises", notes = "Esta función nos devolverá una lista de ejercicios, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getAllExercises", notes = "Esta funcion nos devolvera una lista de ejercicios, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -52,7 +52,7 @@ public class exerciseServiceController {
 		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getExerciseById", notes = "Esta función nos devolverá un ejercicio por su id, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getExerciseById", notes = "Esta funcion nos devolvera un ejercicio por su id, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -64,7 +64,7 @@ public class exerciseServiceController {
 		return new ResponseEntity<exercise>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getAllExercisesByIdUser", notes = "Esta función nos devolverá una lista de ejercicios por el id del usuario que lo creo, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getAllExercisesByIdUser", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -77,7 +77,7 @@ public class exerciseServiceController {
 		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getExerciseByTitle", notes = "Esta función nos devolverá una lista de ejercicios por el nombre del ejercicio pasado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getExerciseByTitle", notes = "Esta funcion nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -89,7 +89,7 @@ public class exerciseServiceController {
 		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getExerciseByTitleFromUser", notes = "Esta función nos devolverá una lista de ejercicios por el nombre del ejercicio pasado, y el id del usuario que lo creo, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getExerciseByTitleFromUser", notes = "Esta función nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, y el id del usuario que lo creo, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -102,7 +102,7 @@ public class exerciseServiceController {
 		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "createExercise", notes = "Esta función nos creará un ejercicio si le pasamos un objeto de tipo exercise, y nos devolverá el ejercicio creado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "createExercise", notes = "Esta funcion nos creara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolvera el ejercicio creado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -114,7 +114,7 @@ public class exerciseServiceController {
 	}
 
 
-	@ApiOperation(value = "updateExercise", notes = "Esta función nos actualizara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolverá el ejercicio actualizado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "updateExercise", notes = "Esta funcion nos actualizara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolvera el ejercicio actualizado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -125,7 +125,7 @@ public class exerciseServiceController {
 		return new ResponseEntity<exercise>(updated, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "deleteExerciseById", notes = "Esta función nos eliminará un ejercicio si le pasamos su id (Long), y nos devolverá un HttpStatus")
+	@ApiOperation(value = "deleteExerciseById", notes = "Esta funcion nos eliminara un ejercicio si le pasamos su id (Long), y nos devolvera un HttpStatus")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
 			@ApiResponse(code = 400, message = "Bad Request"),

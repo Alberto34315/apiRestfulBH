@@ -40,7 +40,7 @@ public class userServiceController {
 	@Autowired
 	userService service;
 
-	@ApiOperation(value = "getAllUsers", notes = "Esta función nos devolverá una lista de usuarios, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getAllUsers", notes = "Esta funcion nos devolvera una lista de usuarios, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -52,7 +52,7 @@ public class userServiceController {
 		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "getUserById", notes = "Esta función nos devolverá un usuario por su id, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getUserById", notes = "Esta funcion nos devolvera un usuario por su id, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -64,7 +64,7 @@ public class userServiceController {
 		return new ResponseEntity<user>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getUserByTitle", notes = "Esta función nos devolverá una lista de usuarios por el nombre del usuario pasado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getUserByTitle", notes = "Esta funcion nos devolvera una lista de usuarios por el nombre del usuario pasado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -76,7 +76,7 @@ public class userServiceController {
 		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "searchCredentials", notes = "Esta función nos devolverá un usuario por el email y su contraseña, mas una respuesta HTTP completa")
+	@ApiOperation(value = "searchCredentials", notes = "Esta funcion nos devolvera un usuario por el email y su contraseña, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -89,7 +89,7 @@ public class userServiceController {
 		return new ResponseEntity<user>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "searchEmail", notes = "Esta función nos devolverá un usuario por el email, mas una respuesta HTTP completa")
+	@ApiOperation(value = "searchEmail", notes = "Esta funcion nos devolvera un usuario por el email, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -101,7 +101,7 @@ public class userServiceController {
 		return new ResponseEntity<user>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "createUser", notes = "Esta función nos creará un usuario si le pasamos un objeto de tipo user, y nos devolverá el usuario creado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "createUser", notes = "Esta funcion nos creara un usuario si le pasamos un objeto de tipo user, y nos devolvera el usuario creado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -112,7 +112,7 @@ public class userServiceController {
 		return new ResponseEntity<user>(created, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "updateUser", notes = "Esta función nos actualizara un usuario si le pasamos un objeto de tipo user, y nos devolverá el usuario actualizado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "updateUser", notes = "Esta funcion nos actualizara un usuario si le pasamos un objeto de tipo user, y nos devolvera el usuario actualizado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -123,7 +123,7 @@ public class userServiceController {
 		return new ResponseEntity<user>(updated, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "deleteUserById", notes = "Esta función nos eliminará un usuario si le pasamos su id (Long), y nos devolverá un HttpStatus")
+	@ApiOperation(value = "deleteUserById", notes = "Esta funcion nos eliminara un usuario si le pasamos su id (Long), y nos devolvera un HttpStatus")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),

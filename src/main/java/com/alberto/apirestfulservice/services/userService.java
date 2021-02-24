@@ -83,6 +83,7 @@ public class userService {
 				newEntity.setPass(entity.getPass());
 				newEntity.setAvatar(entity.getAvatar());
 				newEntity.setLt(entity.getLt());
+				newEntity.setLe(entity.getLe());
 				newEntity = repository.save(newEntity);
 
 				return newEntity;

@@ -41,7 +41,7 @@ public class trainingServiceController {
 	@Autowired
 	trainingService service;
 
-	@ApiOperation(value = "getAllTraining", notes = "Esta función nos devolverá una lista de entrenamientos, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getAllTraining", notes = "Esta funcion nos devolvera una lista de entrenamientos, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -53,7 +53,7 @@ public class trainingServiceController {
 		return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "getTrainingById", notes = "Esta función nos devolverá un entrenamiento por su id, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getTrainingById", notes = "Esta funcion nos devolvera un entrenamiento por su id, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -65,7 +65,7 @@ public class trainingServiceController {
 		return new ResponseEntity<training>(entity, new HttpHeaders(), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "getAllTrainingsByIdUser", notes = "Esta función nos devolverá una lista de entrenamientos por el id del usuario que lo creo, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getAllTrainingsByIdUser", notes = "Esta funcion nos devolvera una lista de entrenamientos por el id del usuario que lo creo, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -77,7 +77,7 @@ public class trainingServiceController {
 		return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "getTrainingsByTitle", notes = "Esta función nos devolverá una lista de entrenamientos por el titulo del entrenamiento, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getTrainingsByTitle", notes = "Esta funcion nos devolvera una lista de entrenamientos por el titulo del entrenamiento, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -89,7 +89,7 @@ public class trainingServiceController {
         return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 	
-	@ApiOperation(value = "getByTitleFromUser", notes = "Esta función nos devolverá una lista de entrenamientos por el titulo del getByTitleFromUser, y el id del usuario que lo creo, mas una respuesta HTTP completa")
+	@ApiOperation(value = "getByTitleFromUser", notes = "Esta funcion nos devolvera una lista de entrenamientos por el titulo del getByTitleFromUser, y el id del usuario que lo creo, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -101,7 +101,7 @@ public class trainingServiceController {
         return new ResponseEntity<List<training>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 	
-	@ApiOperation(value = "createTraining", notes = "Esta función nos creará un entrenamiento si le pasamos un objeto de tipo training, y nos devolverá el entrenamiento creado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "createTraining", notes = "Esta funcion nos creara un entrenamiento si le pasamos un objeto de tipo training, y nos devolvera el entrenamiento creado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -113,7 +113,7 @@ public class trainingServiceController {
 		return new ResponseEntity<training>(created, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "updateTraining", notes = "Esta función nos actualizara un entrenamiento si le pasamos un objeto de tipo training, y nos devolverá el entrenamiento actualizado, mas una respuesta HTTP completa")
+	@ApiOperation(value = "updateTraining", notes = "Esta funcion nos actualizara un entrenamiento si le pasamos un objeto de tipo training, y nos devolvera el entrenamiento actualizado, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -124,7 +124,7 @@ public class trainingServiceController {
 		return new ResponseEntity<training>(updated, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "deleteTrainingById", notes = "Esta función nos eliminará un entrenamiento si le pasamos su id (Long), y nos devolverá un HttpStatus")
+	@ApiOperation(value = "deleteTrainingById", notes = "Esta funcion nos eliminara un entrenamiento si le pasamos su id (Long), y nos devolvera un HttpStatus")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -135,7 +135,7 @@ public class trainingServiceController {
 		return HttpStatus.ACCEPTED;
 	}
 	
-	@ApiOperation(value = "deleteFromListExercise", notes = "Esta función nos eliminará la relación entre un entrenamiento y un ejercicio si le pasamos el id (Long) del entrenamiento y el id (Long) del ejercicio, y nos devolverá un HttpStatus")
+	@ApiOperation(value = "deleteFromListExercise", notes = "Esta funcion nos eliminara la relacion entre un entrenamiento y un ejercicio si le pasamos el id (Long) del entrenamiento y el id (Long) del ejercicio, y nos devolverá un HttpStatus")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = training.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
