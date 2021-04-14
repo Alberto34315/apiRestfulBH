@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface recordRepository extends JpaRepository<records, Long> {
 
-    @Query(value = "SELECT i.* FROM records WHERE iduser=?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM records WHERE iduser=?1", nativeQuery = true)
     public List<records> getAllRecordsByIdUser(Long code);
 
     @Modifying
