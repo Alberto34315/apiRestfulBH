@@ -75,6 +75,7 @@ public class user {
     @JsonIgnoreProperties(value = {"friends"}, allowSetters = true)
     private Set<user> friends;
 
+    
     public List<exercise> getLe() {
         return le;
     }
