@@ -63,7 +63,6 @@ public class user {
     @JsonIgnoreProperties(value = {"creator"}, allowSetters = true)
     private List<exercise> le;
     
-
     @OneToMany(mappedBy = "idu", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     @OnDelete(action = OnDeleteAction.CASCADE)
