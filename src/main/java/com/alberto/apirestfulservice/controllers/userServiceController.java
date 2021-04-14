@@ -51,7 +51,55 @@ public class userServiceController {
 
 		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
+	@ApiOperation(value = "getAllUserLessOwner", notes = "Esta funcion nos devolvera una lista de usuarios que no son amigos de un usuario, mas una respuesta HTTP completa")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
+	@GetMapping("getAllUserLessOwner/{id}")
+	public ResponseEntity<List<user>> getAllUserLessOwner(@PathVariable("id") Long id) {
+		List<user> list = service.getAllUserLessOwner(id, id);
+
+		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "searchUserLessOwner", notes = "Esta funcion nos devolvera una lista de usuarios que no son amigos de un usuario buscanlos por su nombre, mas una respuesta HTTP completa")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
+	@GetMapping("searchUserLessOwner/{id}/{name}")
+	public ResponseEntity<List<user>> searchUserLessOwner(@PathVariable("id") Long id,@PathVariable("name") String name) {
+		List<user> list = service.searchUserLessOwner(id, id, name);
+
+		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "getAllFriends", notes = "Esta funcion nos devolvera una lista de usuarios que son amigos de un usuario, mas una respuesta HTTP completa")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
+	@GetMapping("getAllFriends/{id}")
+	public ResponseEntity<List<user>> getAllFriends(@PathVariable("id") Long id) {
+		List<user> list = service.getAllFriends(id);
+
+		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "searchFriends", notes = "Esta funcion nos devolvera una lista de usuarios que son amigos de un usuario buscanlos por su nombre, mas una respuesta HTTP completa")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
+	@GetMapping("searchFriends/{id}/{name}")
+	public ResponseEntity<List<user>> searchFriends(@PathVariable("id") Long id, @PathVariable("name") String name) {
+		List<user> list = service.searchFriends(id, name);
+
+		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
+	}
+
 	@ApiOperation(value = "getUserById", notes = "Esta funcion nos devolvera un usuario por su id, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
@@ -76,7 +124,7 @@ public class userServiceController {
 		return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "searchCredentials", notes = "Esta funcion nos devolvera un usuario por el email y su contraseña, mas una respuesta HTTP completa")
+	@ApiOperation(value = "searchCredentials", notes = "Esta funcion nos devolvera un usuario por el email y su contraseï¿½a, mas una respuesta HTTP completa")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
 			@ApiResponse(code = 400, message = "Bad Request"),
@@ -131,6 +179,18 @@ public class userServiceController {
 	@DeleteMapping("/{id}")
 	public HttpStatus deleteUserById(@PathVariable("id") Long id) throws RecordNotFoundException {
 		service.deleteUserById(id);
+		return HttpStatus.ACCEPTED;
+	}
+
+	@ApiOperation(value = "deleteFromFriendship", notes = "Esta funcion nos eliminara la relacion entre un Usuario y otro Usuario si le pasamos el id (Long) correspondiente a cada uno, y nos devolverï¿½ un HttpStatus")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
+	@DeleteMapping("/{owner_id}/friend/{friend_id}")
+	public HttpStatus deleteFromFriendship(@PathVariable("owner_id") Long owner_id,
+			@PathVariable("friend_id") Long friend_id) throws RecordNotFoundException {
+		service.deleteFromFriendship(owner_id, friend_id);
 		return HttpStatus.ACCEPTED;
 	}
 }

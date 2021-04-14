@@ -15,93 +15,146 @@ import com.alberto.apirestfulservice.repositories.userRepository;
 
 @Service
 public class userService {
-	@Autowired
-	userRepository repository;
 
-	public List<user> getAllUsers() {
-		List<user> itemList = repository.findAll();
+    @Autowired
+    userRepository repository;
 
-		if (itemList.size() > 0) {
-			return itemList;
-		} else {
-			return new ArrayList<user>();
-		}
-	}
+    public List<user> getAllUsers() {
+        List<user> itemList = repository.findAll();
 
-	public user getUserById(Long id) throws RecordNotFoundException {
-		Optional<user> item = repository.findById(id);
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
 
-		if (item.isPresent()) {
-			return item.get();
-		} else {
-			throw new RecordNotFoundException("No item record exist for given id", id);
-		}
-	}
+    public List<user> getAllUserLessOwner(Long owner_id1,Long owner_id2) {
+        List<user> itemList = repository.getAllUserLessOwner(owner_id1, owner_id2);
 
-	public List<user> getItemsByName(String title) {
-		List<user> itemList = repository.getByTitle(title);
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
+    public List<user> searchUserLessOwner(Long owner_id1,Long owner_id2,String name) {
+        List<user> itemList = repository.searchUserLessOwner(owner_id1, owner_id2,name);
 
-		if (itemList.size() > 0) {
-			return itemList;
-		} else {
-			return new ArrayList<user>();
-		}
-	}
-	public user searchCredentials(String email,String pass) {
-		user item = repository.searchCredentials(email, pass);
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
+     public List<user> getAllFriends(Long owner_id) {
+        List<user> itemList = repository.getAllFriends(owner_id);
 
-		if (item!=null) {
-			return item;
-		} else {
-			return new user();
-		}
-	}
-	public user searchEmail(String email) {
-		user item = repository.searchEmail(email);
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
 
-		if (item!=null) {
-			return item;
-		} else {
-			return new user();
-		}
-	}
-	public user createUser(user entity) {
-		entity = repository.save(entity);
-		return entity;
-	}
-	
-	public user UpdateUser(user entity) throws RecordNotFoundException {
+     public List<user> searchFriends(Long owner_id,String name) {
+         List<user> itemList = repository.searchFriends(owner_id,name);
 
-		if (entity.getId() != null) {
-			Optional<user> item = repository.findById(entity.getId());
+         if (itemList.size() > 0) {
+             return itemList;
+         } else {
+             return new ArrayList<user>();
+         }
+     }
+    public user getUserById(Long id) throws RecordNotFoundException {
+        Optional<user> item = repository.findById(id);
 
-			if (item.isPresent()) {
-				user newEntity = item.get();
-				// newEntity.setId(entity.getId());
-				newEntity.setName(entity.getName());
-				newEntity.setEmail(entity.getEmail());
-				newEntity.setPass(entity.getPass());
-				newEntity.setAvatar(entity.getAvatar());
-				newEntity.setLt(entity.getLt());
-				newEntity.setLe(entity.getLe());
-				newEntity = repository.save(newEntity);
+        if (item.isPresent()) {
+            return item.get();
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", id);
+        }
+    }
 
-				return newEntity;
-			} else {
-				throw new RecordNotFoundException("Item not found", entity.getId());
-			}
-		} else {
-			throw new RecordNotFoundException("No id of item given", 0l);
-		}
-	}
+    public List<user> getItemsByName(String title) {
+        List<user> itemList = repository.getByTitle(title);
 
-	public void deleteUserById(Long id) throws RecordNotFoundException {
-		Optional<user> item = repository.findById(id);
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
 
-		if (item.isPresent()) {
-			repository.deleteById(id);
-		} else {
-			throw new RecordNotFoundException("No item record exist for given id", id);
-		}
-	}
+    public user searchCredentials(String email, String pass) {
+        user item = repository.searchCredentials(email, pass);
+
+        if (item != null) {
+            return item;
+        } else {
+            return new user();
+        }
+    }
+
+    public user searchEmail(String email) {
+        user item = repository.searchEmail(email);
+
+        if (item != null) {
+            return item;
+        } else {
+            return new user();
+        }
+    }
+
+    public user createUser(user entity) {
+        entity = repository.save(entity);
+        return entity;
+    }
+
+    public user UpdateUser(user entity) throws RecordNotFoundException {
+
+        if (entity.getId() != null) {
+            Optional<user> item = repository.findById(entity.getId());
+
+            if (item.isPresent()) {
+                user newEntity = item.get();
+                // newEntity.setId(entity.getId());
+                newEntity.setName(entity.getName());
+                newEntity.setEmail(entity.getEmail());
+                newEntity.setPass(entity.getPass());
+                newEntity.setAvatar(entity.getAvatar());
+                newEntity.setLt(entity.getLt());
+                newEntity.setLe(entity.getLe());
+                newEntity.setFriends(entity.getFriends());
+                newEntity.setLrecords(newEntity.getLrecords());
+                newEntity = repository.save(newEntity);
+
+                return newEntity;
+            } else {
+                throw new RecordNotFoundException("Item not found", entity.getId());
+            }
+        } else {
+            throw new RecordNotFoundException("No id of item given", 0l);
+        }
+    }
+
+    public void deleteUserById(Long id) throws RecordNotFoundException {
+        Optional<user> item = repository.findById(id);
+
+        if (item.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", id);
+        }
+    }
+
+    public void deleteFromFriendship(Long owner_id, Long friend_id) throws RecordNotFoundException {
+        Optional<user> owner = repository.findById(owner_id);
+        Optional<user> friend = repository.findById(friend_id);
+        if (owner.isPresent() && friend.isPresent()) {
+            repository.deleteFromFriendship(owner_id, friend_id);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", owner_id);
+        }
+    }
 }

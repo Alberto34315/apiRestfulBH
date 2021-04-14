@@ -37,7 +37,7 @@ public class exercise {
 	private String nameExercise;
 
 
-	@Column(name = "description")
+	@Column(name = "description",columnDefinition="TEXT")
 	private String description;
 
 

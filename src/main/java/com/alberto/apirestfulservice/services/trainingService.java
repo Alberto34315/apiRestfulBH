@@ -15,42 +15,54 @@ import com.alberto.apirestfulservice.repositories.trainingRepository;
 
 @Service
 public class trainingService {
-	@Autowired
-	trainingRepository repository;
-	
-	@Autowired
-	exerciseRepository exerR;
-	
-	public List<training> getAllTrainings() {
-		List<training> itemList = repository.findAll();
 
-		if (itemList.size() > 0) {
-			return itemList;
-		} else {
-			return new ArrayList<training>();
-		}
-	}
-	public List<training> getAllTrainingsByIdUser(Long id) {
-		List<training> itemList = repository.getAllTrainingsByIdUser(id);
+    @Autowired
+    trainingRepository repository;
 
-		if (itemList.size() > 0) {
-			return itemList;
-		} else {
-			return new ArrayList<training>();
-		}
-	}
+    @Autowired
+    exerciseRepository exerR;
 
-	public training getTrainingById(Long id) throws RecordNotFoundException {
-		Optional<training> item = repository.findById(id);
+    public List<training> getAllTrainings() {
+        List<training> itemList = repository.findAll();
 
-		if (item.isPresent()) {
-			return item.get();
-		} else {
-			throw new RecordNotFoundException("No item record exist for given id", id);
-		}
-	}
-	
-	public List<training> getItemsByTitle(String title) {
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
+
+    public List<training> getAllTrainingsByIdUser(Long id) {
+        List<training> itemList = repository.getAllTrainingsByIdUser(id);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
+
+    public List<training> getAllTrainingsByIdUserIsPublished(Long id) {
+        List<training> itemList = repository.getAllTrainingsByIdUserIsPublished(id);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
+
+    public training getTrainingById(Long id) throws RecordNotFoundException {
+        Optional<training> item = repository.findById(id);
+
+        if (item.isPresent()) {
+            return item.get();
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", id);
+        }
+    }
+
+    public List<training> getItemsByTitle(String title) {
         List<training> itemList = repository.getByTitle(title);
 
         if (itemList.size() > 0) {
@@ -59,9 +71,9 @@ public class trainingService {
             return new ArrayList<training>();
         }
     }
-	
-	public List<training> getByTitleFromUser(String title,Long code) {
-        List<training> itemList = repository.getByTitleFromUser(title,code);
+
+    public List<training> getByTitleFromUser(String title, Long code) {
+        List<training> itemList = repository.getByTitleFromUser(title, code);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -69,54 +81,65 @@ public class trainingService {
             return new ArrayList<training>();
         }
     }
-	
-	public training createTraining(training entity) {
-		//System.out.println(myItem);
-		entity = repository.save(entity);
-		return entity;
-	}
 
-	
-	public training UpdateTraining(training entity) throws RecordNotFoundException {
+    public List<training> getTrainingOfFriendsByTitle(String title, Long code) {
+        List<training> itemList = repository.getTrainingOfFriendsByTitle(title, code);
 
-		if (entity.getId() != null) {
-			Optional<training> item = repository.findById(entity.getId());
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
 
-			if (item.isPresent()) {
-				training newEntity = item.get();
-				// newEntity.setId(entity.getId());
-				newEntity.setTitle(entity.getTitle());
-				newEntity.setExercises(entity.getExercises());
-				newEntity.setCreator(entity.getCreator());
-				newEntity.setTime(entity.getTime());
-				newEntity = repository.save(newEntity);
+    public training createTraining(training entity) {
+        //System.out.println(myItem);
+        entity = repository.save(entity);
+        return entity;
+    }
 
-				return newEntity;
-			} else {
-				throw new RecordNotFoundException("Item not found", entity.getId());
-			}
-		} else {
-			throw new RecordNotFoundException("No id of item given", 0l);
-		}
-	}
+    public training UpdateTraining(training entity) throws RecordNotFoundException {
 
-	public void deleteTrainingById(Long id) throws RecordNotFoundException {
-		Optional<training> item = repository.findById(id);
+        if (entity.getId() != null) {
+            Optional<training> item = repository.findById(entity.getId());
 
-		if (item.isPresent()) {
-			repository.deleteFromTraining(id);
-		} else {
-			throw new RecordNotFoundException("No item record exist for given id", id);
-		}
-	}
+            if (item.isPresent()) {
+                training newEntity = item.get();
+                // newEntity.setId(entity.getId());
+                newEntity.setTitle(entity.getTitle());
+                newEntity.setExercises(entity.getExercises());
+                newEntity.setCreator(entity.getCreator());
+                newEntity.setTime(entity.getTime());
+                newEntity.setLr(entity.getLr());
+                newEntity.setPublished(entity.isPublished());
+                newEntity = repository.save(newEntity);
 
-	public void deleteFromExercise (Long idT, Long idE) throws RecordNotFoundException {
-		Optional<training> itemT = repository.findById(idT);
-		Optional<exercise> itemE = exerR.findById(idE);
-		if (itemT.isPresent() && itemE.isPresent()) {
-			repository.deleteFromListExercise(idT,idE);
-		} else {
-			throw new RecordNotFoundException("No item record exist for given id", idT);
-		}
-	}
+                return newEntity;
+            } else {
+                throw new RecordNotFoundException("Item not found", entity.getId());
+            }
+        } else {
+            throw new RecordNotFoundException("No id of item given", 0l);
+        }
+    }
+
+    public void deleteTrainingById(Long id) throws RecordNotFoundException {
+        Optional<training> item = repository.findById(id);
+
+        if (item.isPresent()) {
+            repository.deleteFromTraining(id);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", id);
+        }
+    }
+
+    public void deleteFromExercise(Long idT, Long idE) throws RecordNotFoundException {
+        Optional<training> itemT = repository.findById(idT);
+        Optional<exercise> itemE = exerR.findById(idE);
+        if (itemT.isPresent() && itemE.isPresent()) {
+            repository.deleteFromListExercise(idT, idE);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", idT);
+        }
+    }
 }

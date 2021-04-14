@@ -1,15 +1,15 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-108-128-104-50.eu-west-1.compute.amazonaws.com:5432/df62218adkr7lo
-    username: kfofanythgwkis
-    password: 526c9a4e09b706b85f4bdd8ccf02b573c71a9d58320df7ac1a291442a76adba7
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://136.243.132.113:3306/s38_BoxingHouseDB
+    username: u38_3nNUvsvgqB
+    password: kK8S=NeQgOPHaKHt7.kti@C@
     pool-size: 30
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     open-in-view: false
     generate-ddl: true
