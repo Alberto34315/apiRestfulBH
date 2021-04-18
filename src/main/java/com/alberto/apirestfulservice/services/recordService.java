@@ -49,6 +49,18 @@ public class recordService {
         }
     }
     
+
+    public Integer getNumberOfTrainingsForDate(String id) {
+        Integer itemList = repository.getNumberOfTrainingsForDate(id);
+
+        if (itemList > 0) {
+            return itemList;
+        } else {
+            return 0;
+        }
+    }
+    
+    
     public records createRecord(records entity) {
         entity = repository.save(entity);
         return entity;

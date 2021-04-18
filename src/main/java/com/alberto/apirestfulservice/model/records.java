@@ -30,7 +30,7 @@ public class records {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @JsonBackReference(value = "lr")
+    //@JsonBackReference(value = "lr")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "FK_IDTRAINIG")
     @JsonIgnoreProperties(value = {"lr"}, allowSetters = true)

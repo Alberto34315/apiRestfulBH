@@ -75,6 +75,18 @@ public class recordServiceController {
         return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "getNumberOfTrainingsForDate", notes = "Esta funcion nos devolvera el numero de entrenamientos realizados en una fecha, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = Integer.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/date/{date}")
+    public ResponseEntity<Integer> getNumberOfTrainingsForDate(@PathVariable("date") String date) throws RecordNotFoundException {
+    	Integer list = service.getNumberOfTrainingsForDate(date);
+
+        return new ResponseEntity<Integer>(list, new HttpHeaders(), HttpStatus.OK);
+    }    
+    
     @ApiOperation(value = "createRecord", notes = "Esta funcion nos creara un entrenamiento realizado si le pasamos un objeto de tipo records, y nos devolvera el record creado, mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),

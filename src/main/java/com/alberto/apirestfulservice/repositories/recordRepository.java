@@ -17,8 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface recordRepository extends JpaRepository<records, Long> {
 
-    @Query(value = "SELECT * FROM records WHERE iduser=?1", nativeQuery = true)
+    @Query(value = "SELECT id,(date+INTERVAL 2 HOUR) as date ,fk_idtrainig,iduser FROM records WHERE iduser=?1 ORDER BY DATE ASC", nativeQuery = true)
     public List<records> getAllRecordsByIdUser(Long code);
+
+    @Query(value = "SELECT COUNT(*) from records WHERE (DATE+INTERVAL 2 HOUR) LIKE ?1", nativeQuery = true)
+    public Integer getNumberOfTrainingsForDate(String code);
 
     @Modifying
     @Transactional
