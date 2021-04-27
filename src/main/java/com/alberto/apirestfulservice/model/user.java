@@ -1,5 +1,7 @@
 package com.alberto.apirestfulservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +28,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "users")
@@ -48,10 +51,10 @@ public class user {
     private String pass;
 
     @NotBlank
-    @Column(name = "avatar", columnDefinition = "TEXT")
+    @Column(name = "avatar", columnDefinition = "LONGTEXT")
     private String avatar;
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "creator", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @LazyCollection(LazyCollectionOption.FALSE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value = {"creator"}, allowSetters = true)
@@ -62,20 +65,34 @@ public class user {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value = {"creator"}, allowSetters = true)
     private List<exercise> le;
-    
+
     @OneToMany(mappedBy = "idu", cascade = CascadeType.MERGE)
     @LazyCollection(LazyCollectionOption.FALSE)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties(value = {"idu"}, allowSetters = true)
     private List<records> lrecords;
-  
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "Friendship", joinColumns = @JoinColumn(name = "owner_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
     @JsonIgnoreProperties(value = {"friends"}, allowSetters = true)
     private Set<user> friends;
 
-    
+    private boolean privateCount;
+
+    //@JsonBackReference(value = "usersf")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "usersf", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @JsonIgnore//@JsonIgnoreProperties(value = {"usersf"}, allowSetters = true)
+    private Set<training> trainingsf;
+
+    public boolean isPrivateCount() {
+        return privateCount;
+    }
+
+    public void setPrivateCount(boolean privateCount) {
+        this.privateCount = privateCount;
+    }
+
     public List<exercise> getLe() {
         return le;
     }
@@ -169,13 +186,33 @@ public class user {
     }
 
     public void setLrecords(List<records> lrecords) {
-      
+
         if (lrecords == null) {
             lrecords = new ArrayList<records>();
         }
         this.lrecords = lrecords;
         for (records record : lrecords) {
             record.setIdu(this);
+        }
+    }
+
+    public Set<training> getTrainingsf() {
+        return trainingsf;
+    }
+
+    public void setTrainingsf(Set<training> trainingsf) {
+        if (trainingsf == null) {
+            trainingsf = new HashSet<training>();
+        }
+        this.trainingsf = trainingsf;
+        for (training training : trainingsf) {
+            Set<user> list = training.getUsersf();
+            if (list == null) {
+                list = new HashSet<user>();
+            }
+            if (!list.contains(this)) {
+                list.add(this);
+            }
         }
     }
 

@@ -23,136 +23,132 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "exercise")
 public class exercise {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "nameExercise")
+    private String nameExercise;
 
-	@Column(name = "nameExercise")
-	private String nameExercise;
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
 
+    @Column(name = "type")
+    private String type;
 
-	@Column(name = "description",columnDefinition="TEXT")
-	private String description;
+    @Column(name = "repTime")
+    private int repTime;
 
+    @Column(name = "photo", columnDefinition = "LONGTEXT")
+    private String photo;
 
-	@Column(name = "type")
-	private String type;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "exercises", cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value = {"exercises"}, allowSetters = true)
+    private List<training> t;
 
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "IDUSER")
+    @JsonIgnoreProperties(value = {"le"}, allowSetters = true)
+    private user creator;
 
-	@Column(name = "repTime")
-	private int repTime;
+    public user getCreator() {
+        return creator;
+    }
 
+    public void setCreator(user creator) {
+        if (creator == null) {
+            creator = new user();
+        }
+        this.creator = creator;
+        List<exercise> list = this.creator.getLe();
+        if (list == null) {
+            list = new ArrayList();
+        }
+        if (!list.contains(this)) {
+            list.add(this);
+        }
+    }
 
-	@Column(name = "photo",columnDefinition="TEXT")
-	private String photo;
-	
-	
-	@ManyToMany(fetch = FetchType.EAGER,mappedBy = "exercises",cascade = CascadeType.MERGE)
-	@JsonIgnoreProperties(value={"exercises"},allowSetters = true)
-	private List<training> t;
+    public Long getId() {
+        return id;
+    }
 
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-	@JoinColumn(name = "IDUSER")
-	@JsonIgnoreProperties(value={"le"},allowSetters = true)
-	private user creator;
-	
-	
-	public user getCreator() {
-		return creator;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setCreator(user creator) {
-		if (creator == null) {
-			creator = new user();
-		}
-		this.creator = creator;
-		List<exercise> list = this.creator.getLe();
-		if (list == null) {
-			list = new ArrayList();
-		}
-		if (!list.contains(this)) {
-			list.add(this);
-		}
-	}
-	public Long getId() {
-		return id;
-	}
+    public String getNameExercise() {
+        return nameExercise;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setNameExercise(String nameExercise) {
+        this.nameExercise = nameExercise;
+    }
 
-	public String getNameExercise() {
-		return nameExercise;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setNameExercise(String nameExercise) {
-		this.nameExercise = nameExercise;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public int getRepTime() {
+        return repTime;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setRepTime(int repTime) {
+        this.repTime = repTime;
+    }
 
-	public int getRepTime() {
-		return repTime;
-	}
+    public String getPhoto() {
+        return photo;
+    }
 
-	public void setRepTime(int repTime) {
-		this.repTime = repTime;
-	}
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
-	public String getPhoto() {
-		return photo;
-	}
+    public List<training> getT() {
+        return t;
+    }
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public List<training> getT() {
-		return t;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public void setT(List<training> t) {
+        if (t == null) {
+            t = new ArrayList<training>();
+        }
+        this.t = t;
+        for (training training : t) {
+            List<exercise> list = training.getExercises();
+            if (list == null) {
+                list = new ArrayList<exercise>();
+            }
+            if (!list.contains(this)) {
+                list.add(this);
+            }
+        }
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public void setT(List<training> t) {
-		if(t==null) {
-			t = new ArrayList<training>();
-		}
-		this.t = t;
-		for (training training : t) {
-			List<exercise> list=training.getExercises();
-			if(list==null) {
-				list=new ArrayList<exercise>();
-			}
-			if(!list.contains(this)) {
-				list.add(this);
-			}
-		}
-	}
-
-	@Override
-	public String toString() {
-		return "exercise [id=" + id + ", nameExercise=" + nameExercise + ", description=" + description + ", repTime="
-				+ repTime + ", photo=" + photo + ", t=" + t + "]";
-	}
+    @Override
+    public String toString() {
+        return "exercise [id=" + id + ", nameExercise=" + nameExercise + ", description=" + description + ", repTime="
+                + repTime + ", photo=" + photo + ", t=" + t + "]";
+    }
 
 }

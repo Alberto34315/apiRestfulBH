@@ -37,102 +37,127 @@ import com.alberto.apirestfulservice.model.user;
 @RequestMapping("/exercise")
 public class exerciseServiceController {
 
-	@Autowired
-	exerciseService service;
+    @Autowired
+    exerciseService service;
 
-	@ApiOperation(value = "getAllExercises", notes = "Esta funcion nos devolvera una lista de ejercicios, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@GetMapping
-	public ResponseEntity<List<exercise>> getAllExercises() {
-		List<exercise> list = service.getAllExercises();
+    @ApiOperation(value = "getAllExercises", notes = "Esta funcion nos devolvera una lista de ejercicios, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping
+    public ResponseEntity<List<exercise>> getAllExercises() {
+        List<exercise> list = service.getAllExercises();
 
-		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
-	}
+        return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
 
-	@ApiOperation(value = "getExerciseById", notes = "Esta funcion nos devolvera un ejercicio por su id, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@GetMapping("/{id}")
-	public ResponseEntity<exercise> getExerciseById(@PathVariable("id") Long id) throws RecordNotFoundException {
-		exercise entity = service.getExerciseById(id);
+    @ApiOperation(value = "getExerciseById", notes = "Esta funcion nos devolvera un ejercicio por su id, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/{id}")
+    public ResponseEntity<exercise> getExerciseById(@PathVariable("id") Long id) throws RecordNotFoundException {
+        exercise entity = service.getExerciseById(id);
 
-		return new ResponseEntity<exercise>(entity, new HttpHeaders(), HttpStatus.OK);
-	}
+        return new ResponseEntity<exercise>(entity, new HttpHeaders(), HttpStatus.OK);
+    }
 
-	@ApiOperation(value = "getAllExercisesByIdUser", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@GetMapping("/user/{id}")
-	public ResponseEntity<List<exercise>> getAllExercisesByIdUser(@PathVariable("id") Long id)
-			throws RecordNotFoundException {
-		List<exercise> list = service.getAllExercisesByIdUser(id);
+    @ApiOperation(value = "getAllExercisesByIdUser", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<exercise>> getAllExercisesByIdUser(@PathVariable("id") Long id)
+            throws RecordNotFoundException {
+        List<exercise> list = service.getAllExercisesByIdUser(id);
 
-		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
-	}
+        return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
 
-	@ApiOperation(value = "getExerciseByTitle", notes = "Esta funcion nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@GetMapping("/search/{title}")
-	public ResponseEntity<List<exercise>> getExerciseByTitle(@PathVariable("title") String title) {
-		List<exercise> list = service.getItemsByName(title);
+    @ApiOperation(value = "getAllExercisesByIdUserAndNotFoundTraining", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, filtrando si ya se encuentran los ejercicios en el entrenamiento, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/user/exercises/{code1}")
+    public ResponseEntity<List<exercise>> getAllExercisesByIdUserAndNotFoundTraining(@PathVariable("code1") Long code1)
+            throws RecordNotFoundException {
+        List<exercise> list = service.getAllExercisesByIdUserAndNotFoundTraining(code1);
 
-		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
-	}
+        return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
 
-	@ApiOperation(value = "getExerciseByTitleFromUser", notes = "Esta función nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, y el id del usuario que lo creo, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@GetMapping("/search/{title}/user/{id}")
-	public ResponseEntity<List<exercise>> getExerciseByTitleFromUser(@PathVariable("title") String title,
-			@PathVariable("id") Long id) {
-		List<exercise> list = service.getByTitleFromUser(title, id);
+    @ApiOperation(value = "searchAllExercisesByIdUserAndNotFoundTraining", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, filtrando si ya se encuentran los ejercicios en el entrenamiento y por su nombre, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/user/exercises/{code1}/search/{title}")
+    public ResponseEntity<List<exercise>> searchAllExercisesByIdUserAndNotFoundTraining(@PathVariable("code1") Long code1, @PathVariable("title") String title)
+            throws RecordNotFoundException {
+        List<exercise> list = service.searchAllExercisesByIdUserAndNotFoundTraining(code1, title);
 
-		return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
-	}
+        return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
 
-	@ApiOperation(value = "createExercise", notes = "Esta funcion nos creara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolvera el ejercicio creado, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@PostMapping
-	public ResponseEntity<exercise> createExercise(@Valid @RequestBody exercise myItem) {
-		exercise created = service.createExercise(myItem);
-		return new ResponseEntity<exercise>(created, new HttpHeaders(), HttpStatus.OK);
-	}
+    @ApiOperation(value = "getExerciseByTitle", notes = "Esta funcion nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/search/{title}")
+    public ResponseEntity<List<exercise>> getExerciseByTitle(@PathVariable("title") String title) {
+        List<exercise> list = service.getItemsByName(title);
 
+        return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
 
-	@ApiOperation(value = "updateExercise", notes = "Esta funcion nos actualizara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolvera el ejercicio actualizado, mas una respuesta HTTP completa")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@PutMapping
-	public ResponseEntity<exercise> updateExercise(@Valid @RequestBody exercise myItem) throws RecordNotFoundException {
-		exercise updated = service.UpdateExercise(myItem);
-		return new ResponseEntity<exercise>(updated, new HttpHeaders(), HttpStatus.OK);
-	}
+    @ApiOperation(value = "getExerciseByTitleFromUser", notes = "Esta funciï¿½n nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, y el id del usuario que lo creo, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/search/{title}/user/{id}")
+    public ResponseEntity<List<exercise>> getExerciseByTitleFromUser(@PathVariable("title") String title,
+            @PathVariable("id") Long id) {
+        List<exercise> list = service.getByTitleFromUser(title, id);
 
-	@ApiOperation(value = "deleteExerciseById", notes = "Esta funcion nos eliminara un ejercicio si le pasamos su id (Long), y nos devolvera un HttpStatus")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
-			@ApiResponse(code = 400, message = "Bad Request"),
-			@ApiResponse(code = 500, message = "Error inesperado del sistema") })
-	@DeleteMapping("/{id}")
-	public HttpStatus deleteExerciseById(@PathVariable("id") Long id) throws RecordNotFoundException {
-		service.deleteExerciseById(id);
-		return HttpStatus.ACCEPTED;
-	}
+        return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "createExercise", notes = "Esta funcion nos creara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolvera el ejercicio creado, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @PostMapping
+    public ResponseEntity<exercise> createExercise(@Valid @RequestBody exercise myItem) {
+        exercise created = service.createExercise(myItem);
+        return new ResponseEntity<exercise>(created, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "updateExercise", notes = "Esta funcion nos actualizara un ejercicio si le pasamos un objeto de tipo exercise, y nos devolvera el ejercicio actualizado, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @PutMapping
+    public ResponseEntity<exercise> updateExercise(@Valid @RequestBody exercise myItem) throws RecordNotFoundException {
+        exercise updated = service.UpdateExercise(myItem);
+        return new ResponseEntity<exercise>(updated, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "deleteExerciseById", notes = "Esta funcion nos eliminara un ejercicio si le pasamos su id (Long), y nos devolvera un HttpStatus")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @DeleteMapping("/{id}")
+    public HttpStatus deleteExerciseById(@PathVariable("id") Long id) throws RecordNotFoundException {
+        service.deleteExerciseById(id);
+        return HttpStatus.ACCEPTED;
+    }
 }

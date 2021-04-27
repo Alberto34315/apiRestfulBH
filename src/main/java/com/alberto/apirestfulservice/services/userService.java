@@ -29,7 +29,7 @@ public class userService {
         }
     }
 
-    public List<user> getAllUserLessOwner(Long owner_id1,Long owner_id2) {
+    public List<user> getAllUserLessOwner(Long owner_id1, Long owner_id2) {
         List<user> itemList = repository.getAllUserLessOwner(owner_id1, owner_id2);
 
         if (itemList.size() > 0) {
@@ -38,8 +38,9 @@ public class userService {
             return new ArrayList<user>();
         }
     }
-    public List<user> searchUserLessOwner(Long owner_id1,Long owner_id2,String name) {
-        List<user> itemList = repository.searchUserLessOwner(owner_id1, owner_id2,name);
+
+    public List<user> searchUserLessOwner(Long owner_id1, Long owner_id2, String name) {
+        List<user> itemList = repository.searchUserLessOwner(owner_id1, owner_id2, name);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -47,7 +48,8 @@ public class userService {
             return new ArrayList<user>();
         }
     }
-     public List<user> getAllFriends(Long owner_id) {
+
+    public List<user> getAllFriends(Long owner_id) {
         List<user> itemList = repository.getAllFriends(owner_id);
 
         if (itemList.size() > 0) {
@@ -57,15 +59,16 @@ public class userService {
         }
     }
 
-     public List<user> searchFriends(Long owner_id,String name) {
-         List<user> itemList = repository.searchFriends(owner_id,name);
+    public List<user> searchFriends(Long owner_id, String name) {
+        List<user> itemList = repository.searchFriends(owner_id, name);
 
-         if (itemList.size() > 0) {
-             return itemList;
-         } else {
-             return new ArrayList<user>();
-         }
-     }
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
+
     public user getUserById(Long id) throws RecordNotFoundException {
         Optional<user> item = repository.findById(id);
 
@@ -106,6 +109,16 @@ public class userService {
         }
     }
 
+    public List<user> getAllUsersByIdTrainingFavorite(Long id) {
+        List<user> itemList = repository.getAllUsersByIdTrainingFavorite(id);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
+
     public user createUser(user entity) {
         entity = repository.save(entity);
         return entity;
@@ -126,7 +139,9 @@ public class userService {
                 newEntity.setLt(entity.getLt());
                 newEntity.setLe(entity.getLe());
                 newEntity.setFriends(entity.getFriends());
-                newEntity.setLrecords(newEntity.getLrecords());
+                newEntity.setLrecords(entity.getLrecords());
+                newEntity.setPrivateCount(entity.isPrivateCount());
+                newEntity.setTrainingsf(entity.getTrainingsf());
                 newEntity = repository.save(newEntity);
 
                 return newEntity;

@@ -75,18 +75,41 @@ public class recordServiceController {
         return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "getLastSevenRecordsByIdUser", notes = "Esta funcion nos devolvera una lista de los 7 ultimos entrenamientos realizados por el id del usuario que los creo, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("/lastTrainings/{id}")
+    public ResponseEntity<List<records>> getLastSevenRecordsByIdUser(@PathVariable("id") Long id) throws RecordNotFoundException {
+        List<records> list = service.getLastSevenRecordsByIdUser(id);
+
+        return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "searchRecord", notes = "Esta funcion nos devolvera una lista de entrenamientos realizados buscanlos por su nombre, mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("searchRecord/{id}/{title}")
+    public ResponseEntity<List<records>> searchRecord(@PathVariable("id") Long id, @PathVariable("title") String title) {
+        List<records> list = service.searchRecord(id, title);
+
+        return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "getNumberOfTrainingsForDate", notes = "Esta funcion nos devolvera el numero de entrenamientos realizados en una fecha, mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = Integer.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("/date/{date}")
-    public ResponseEntity<Integer> getNumberOfTrainingsForDate(@PathVariable("date") String date) throws RecordNotFoundException {
-    	Integer list = service.getNumberOfTrainingsForDate(date);
-
+    @GetMapping("/date/{date}/user/{id}")
+    public ResponseEntity<Integer> getNumberOfTrainingsForDate(@PathVariable("date") String date,@PathVariable("id") Long id) throws RecordNotFoundException {
+        Integer list = service.getNumberOfTrainingsForDate(date,id);
         return new ResponseEntity<Integer>(list, new HttpHeaders(), HttpStatus.OK);
-    }    
-    
+    }
+
     @ApiOperation(value = "createRecord", notes = "Esta funcion nos creara un entrenamiento realizado si le pasamos un objeto de tipo records, y nos devolvera el record creado, mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),
@@ -118,6 +141,17 @@ public class recordServiceController {
     @DeleteMapping("/{id}")
     public HttpStatus deleteRecordById(@PathVariable("id") Long id) throws RecordNotFoundException {
         service.deleteRecordById(id);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @ApiOperation(value = "deleteTrainingFromRecord", notes = "Esta funcion nos eliminara un entrenamiento realizado si le pasamos el id del entrenamiento, y nos devolvera un HttpStatus")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @DeleteMapping("trainingId/{id}")
+    public HttpStatus deleteTrainingFromRecord(@PathVariable("id") Long id) throws RecordNotFoundException {
+        service.deleteTrainingFromRecord(id);
         return HttpStatus.ACCEPTED;
     }
 }

@@ -7,7 +7,9 @@ package com.alberto.apirestfulservice.services;
 
 import com.alberto.apirestfulservice.exception.RecordNotFoundException;
 import com.alberto.apirestfulservice.model.records;
+import com.alberto.apirestfulservice.model.training;
 import com.alberto.apirestfulservice.repositories.recordRepository;
+import com.alberto.apirestfulservice.repositories.trainingRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,9 @@ public class recordService {
     @Autowired
     recordRepository repository;
 
+    @Autowired
+    trainingRepository tRepository;
+    
     public List<records> getAllRecord() {
         List<records> itemList = repository.findAll();
 
@@ -49,9 +54,26 @@ public class recordService {
         }
     }
     
+    public List<records> getLastSevenRecordsByIdUser(Long id) {
+        List<records> itemList = repository.getLastSevenRecordsByIdUser(id);
 
-    public Integer getNumberOfTrainingsForDate(String id) {
-        Integer itemList = repository.getNumberOfTrainingsForDate(id);
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<records>();
+        }
+    }
+        public List<records> searchRecord(Long owner_id,String name) {
+        List<records> itemList = repository.searchRecord(owner_id,name);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<records>();
+        }
+    }
+    public Integer getNumberOfTrainingsForDate(String time,Long code) {
+        Integer itemList = repository.getNumberOfTrainingsForDate(time,code);
 
         if (itemList > 0) {
             return itemList;
@@ -95,4 +117,13 @@ public class recordService {
         }
     }
     
+    public void deleteTrainingFromRecord(Long id) throws RecordNotFoundException {
+        Optional<training> item = tRepository.findById(id);
+
+        if (item.isPresent()) {
+            repository.deleteTrainingFromRecord(id);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", id);
+        }
+    }
 }

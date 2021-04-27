@@ -13,18 +13,28 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Repository
 public interface recordRepository extends JpaRepository<records, Long> {
 
     @Query(value = "SELECT id,(date+INTERVAL 2 HOUR) as date ,fk_idtrainig,iduser FROM records WHERE iduser=?1 ORDER BY DATE ASC", nativeQuery = true)
     public List<records> getAllRecordsByIdUser(Long code);
 
-    @Query(value = "SELECT COUNT(*) from records WHERE (DATE+INTERVAL 2 HOUR) LIKE ?1", nativeQuery = true)
-    public Integer getNumberOfTrainingsForDate(String code);
+    @Query(value = "SELECT COUNT(*) from records WHERE (DATE+INTERVAL 2 HOUR) LIKE ?1 AND iduser=?2", nativeQuery = true)
+    public Integer getNumberOfTrainingsForDate(String time,Long code);
+
+    @Query(value = "SELECT id,(DATE(records.date+INTERVAL 2 HOUR)) as date ,fk_idtrainig,iduser FROM records where iduser=?1 GROUP BY (DATE(records.date+INTERVAL 2 HOUR)) ORDER BY records.date DESC LIMIT 7", nativeQuery = true)
+    public List<records> getLastSevenRecordsByIdUser(Long code);
+
+     @Query(value = "SELECT records.id,(records.date+INTERVAL 2 HOUR) as date ,records.fk_idtrainig,records.iduser FROM records LEFT JOIN training ON records.fk_idtrainig=training.id WHERE records.iduser=?1 AND training.title LIKE %?2%", nativeQuery = true)
+    public List<records> searchRecord(Long code, String name);
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM record WHERE id = ?1 RETURNING id", nativeQuery = true)
+    @Query(value = "DELETE FROM records WHERE id = ?1 RETURNING id", nativeQuery = true)
     public Integer deleteFromRecord(Long code);
+    
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM records WHERE fk_idtrainig = ?1 RETURNING id", nativeQuery = true)
+    public Integer deleteTrainingFromRecord(Long code);
 }

@@ -21,6 +21,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "records")
@@ -32,6 +34,7 @@ public class records {
     
     //@JsonBackReference(value = "lr")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "FK_IDTRAINIG")
     @JsonIgnoreProperties(value = {"lr"}, allowSetters = true)
     private training idTrai;
@@ -41,6 +44,7 @@ public class records {
     
     @JsonBackReference(value = "lrecords")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "IDUSER")
     @JsonIgnoreProperties(value = {"lrecords"}, allowSetters = true)
     private user idu;

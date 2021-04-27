@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import com.alberto.apirestfulservice.exception.RecordNotFoundException;
 import com.alberto.apirestfulservice.model.exercise;
 import com.alberto.apirestfulservice.model.training;
+import com.alberto.apirestfulservice.model.user;
 import com.alberto.apirestfulservice.repositories.exerciseRepository;
 import com.alberto.apirestfulservice.repositories.trainingRepository;
+import com.alberto.apirestfulservice.repositories.userRepository;
+import java.util.Set;
 
 @Service
 public class trainingService {
@@ -21,6 +24,9 @@ public class trainingService {
 
     @Autowired
     exerciseRepository exerR;
+
+    @Autowired
+    userRepository userR;
 
     public List<training> getAllTrainings() {
         List<training> itemList = repository.findAll();
@@ -34,6 +40,16 @@ public class trainingService {
 
     public List<training> getAllTrainingsByIdUser(Long id) {
         List<training> itemList = repository.getAllTrainingsByIdUser(id);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
+
+    public List<training> getAllTrainingsFromFavorites(Long id) {
+        List<training> itemList = repository.getAllTrainingsFromFavorites(id);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -82,6 +98,16 @@ public class trainingService {
         }
     }
 
+    public List<training> searchTrainingsFromFavorites(Long code, String title) {
+        List<training> itemList = repository.searchTrainingsFromFavorites(code, title);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<training>();
+        }
+    }
+
     public List<training> getTrainingOfFriendsByTitle(String title, Long code) {
         List<training> itemList = repository.getTrainingOfFriendsByTitle(title, code);
 
@@ -90,6 +116,19 @@ public class trainingService {
         } else {
             return new ArrayList<training>();
         }
+    }
+
+    public Integer isTrainingFavorite(Long code1, Long code2) {
+        Integer itemList = repository.isTrainingFavorite(code1, code2);
+        if (itemList > 0) {
+            return itemList;
+        } else {
+            return 0;
+        }
+    }
+
+    public void insertTrainingFavorite(Long code1, Long code2) {
+        repository.insertTrainingFavorite(code1, code2);
     }
 
     public training createTraining(training entity) {
@@ -112,6 +151,7 @@ public class trainingService {
                 newEntity.setTime(entity.getTime());
                 newEntity.setLr(entity.getLr());
                 newEntity.setPublished(entity.isPublished());
+                newEntity.setUsersf(entity.getUsersf());
                 newEntity = repository.save(newEntity);
 
                 return newEntity;
@@ -140,6 +180,25 @@ public class trainingService {
             repository.deleteFromListExercise(idT, idE);
         } else {
             throw new RecordNotFoundException("No item record exist for given id", idT);
+        }
+    }
+
+    public void deleteTrainingFavorite(Long code1, Long code2) throws RecordNotFoundException {
+        Optional<training> itemT = repository.findById(code1);
+        Optional<user> itemU = userR.findById(code2);
+        if (itemT.isPresent() && itemU.isPresent()) {
+            repository.deleteTrainingFavorite(code1, code2);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", code1);
+        }
+    }
+
+    public void deleteAllTrainingsFavorite(Long code1) throws RecordNotFoundException {
+        Optional<training> itemT = repository.findById(code1);
+        if (itemT.isPresent()) {
+            repository.deleteAllTrainingsFavorite(code1);
+        } else {
+            throw new RecordNotFoundException("No item record exist for given id", code1);
         }
     }
 }
