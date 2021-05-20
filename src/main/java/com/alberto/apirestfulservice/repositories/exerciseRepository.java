@@ -19,17 +19,17 @@ public interface exerciseRepository extends JpaRepository<exercise, Long> {
     @Query(value = "SELECT * FROM exercise AS i WHERE i.name_exercise LIKE %?1%", nativeQuery = true)
     public List<exercise> getByTitle(String title);
 
-    @Query(value = "SELECT * FROM exercise AS i WHERE i.name_exercise LIKE %?1% AND i.iduser=?2", nativeQuery = true)
-    public List<exercise> getByTitleFromUser(String title, Long code);
+    @Query(value = "SELECT * FROM exercise AS i WHERE i.name_exercise LIKE %?1% AND i.iduser=?2 LIMIT ?3,10", nativeQuery = true)
+    public List<exercise> getByTitleFromUser(String title, Long code, Long num);
 
-    @Query(value = "SELECT * FROM exercise AS i WHERE i.iduser=?1", nativeQuery = true)
-    public List<exercise> getAllExercisesByIdUser(Long code);
+    @Query(value = "SELECT * FROM exercise AS i WHERE i.iduser=?1 LIMIT ?2,10", nativeQuery = true)
+    public List<exercise> getAllExercisesByIdUser(Long code, Long num);
 
-    @Query(value = "SELECT DISTINCT i.* FROM exercise AS i LEFT JOIN listexercise ON i.id != listexercise.fk_exercise where i.iduser=?1 AND i.id NOT IN (SELECT listexercise.fk_exercise FROM listexercise)", nativeQuery = true)
-    public List<exercise> getAllExercisesByIdUserAndNotFoundTraining(Long code1);
+    @Query(value = "SELECT DISTINCT i.* FROM exercise AS i LEFT JOIN listexercise ON i.id != listexercise.fk_exercise where i.iduser=?1 AND i.id NOT IN (SELECT listexercise.fk_exercise FROM listexercise) LIMIT ?2,10", nativeQuery = true)
+    public List<exercise> getAllExercisesByIdUserAndNotFoundTraining(Long code1, Long num);
     
-    @Query(value = "SELECT DISTINCT i.* FROM exercise AS i LEFT JOIN listexercise ON i.id != listexercise.fk_exercise where i.iduser=?1 AND i.id NOT IN (SELECT listexercise.fk_exercise FROM listexercise) AND i.name_exercise LIKE %?2%", nativeQuery = true)
-    public List<exercise> searchAllExercisesByIdUserAndNotFoundTraining(Long code1, String title);
+    @Query(value = "SELECT DISTINCT i.* FROM exercise AS i LEFT JOIN listexercise ON i.id != listexercise.fk_exercise where i.iduser=?1 AND i.id NOT IN (SELECT listexercise.fk_exercise FROM listexercise) AND i.name_exercise LIKE %?2% LIMIT ?3,10", nativeQuery = true)
+    public List<exercise> searchAllExercisesByIdUserAndNotFoundTraining(Long code1, String title, Long num);
     
     @Modifying
     @Transactional

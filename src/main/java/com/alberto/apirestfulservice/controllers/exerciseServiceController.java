@@ -64,41 +64,41 @@ public class exerciseServiceController {
         return new ResponseEntity<exercise>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "getAllExercisesByIdUser", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, mas una respuesta HTTP completa")
+    @ApiOperation(value = "getAllExercisesByIdUser", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<exercise>> getAllExercisesByIdUser(@PathVariable("id") Long id)
+    @GetMapping("/user/{id}/Limit/{num}")
+    public ResponseEntity<List<exercise>> getAllExercisesByIdUser(@PathVariable("id") Long id,@PathVariable("num") Long num)
             throws RecordNotFoundException {
-        List<exercise> list = service.getAllExercisesByIdUser(id);
+        List<exercise> list = service.getAllExercisesByIdUser(id,num);
 
         return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "getAllExercisesByIdUserAndNotFoundTraining", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, filtrando si ya se encuentran los ejercicios en el entrenamiento, mas una respuesta HTTP completa")
+    @ApiOperation(value = "getAllExercisesByIdUserAndNotFoundTraining", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, filtrando si ya se encuentran los ejercicios en el entrenamiento (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("/user/exercises/{code1}")
-    public ResponseEntity<List<exercise>> getAllExercisesByIdUserAndNotFoundTraining(@PathVariable("code1") Long code1)
+    @GetMapping("/user/exercises/{code1}/Limit/{num}")
+    public ResponseEntity<List<exercise>> getAllExercisesByIdUserAndNotFoundTraining(@PathVariable("code1") Long code1,@PathVariable("num") Long num)
             throws RecordNotFoundException {
-        List<exercise> list = service.getAllExercisesByIdUserAndNotFoundTraining(code1);
+        List<exercise> list = service.getAllExercisesByIdUserAndNotFoundTraining(code1,num);
 
         return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "searchAllExercisesByIdUserAndNotFoundTraining", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, filtrando si ya se encuentran los ejercicios en el entrenamiento y por su nombre, mas una respuesta HTTP completa")
+    @ApiOperation(value = "searchAllExercisesByIdUserAndNotFoundTraining", notes = "Esta funcion nos devolvera una lista de ejercicios por el id del usuario que lo creo, filtrando si ya se encuentran los ejercicios en el entrenamiento y por su nombre (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("/user/exercises/{code1}/search/{title}")
-    public ResponseEntity<List<exercise>> searchAllExercisesByIdUserAndNotFoundTraining(@PathVariable("code1") Long code1, @PathVariable("title") String title)
+    @GetMapping("/user/exercises/{code1}/search/{title}/Limit/{num}")
+    public ResponseEntity<List<exercise>> searchAllExercisesByIdUserAndNotFoundTraining(@PathVariable("code1") Long code1, @PathVariable("title") String title,@PathVariable("num") Long num)
             throws RecordNotFoundException {
-        List<exercise> list = service.searchAllExercisesByIdUserAndNotFoundTraining(code1, title);
+        List<exercise> list = service.searchAllExercisesByIdUserAndNotFoundTraining(code1, title,num);
 
         return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
     }
@@ -115,15 +115,15 @@ public class exerciseServiceController {
         return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "getExerciseByTitleFromUser", notes = "Esta funci�n nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, y el id del usuario que lo creo, mas una respuesta HTTP completa")
+    @ApiOperation(value = "getExerciseByTitleFromUser", notes = "Esta funci�n nos devolvera una lista de ejercicios por el nombre del ejercicio pasado, y el id del usuario que lo creo (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = exercise.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("/search/{title}/user/{id}")
+    @GetMapping("/search/{title}/user/{id}/Limit/{num}")
     public ResponseEntity<List<exercise>> getExerciseByTitleFromUser(@PathVariable("title") String title,
-            @PathVariable("id") Long id) {
-        List<exercise> list = service.getByTitleFromUser(title, id);
+            @PathVariable("id") Long id,@PathVariable("num") Long num) {
+        List<exercise> list = service.getByTitleFromUser(title, id,num);
 
         return new ResponseEntity<List<exercise>>(list, new HttpHeaders(), HttpStatus.OK);
     }

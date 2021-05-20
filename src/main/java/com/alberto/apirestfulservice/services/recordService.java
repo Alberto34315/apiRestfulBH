@@ -44,8 +44,8 @@ public class recordService {
         }
     }
 
-    public List<records> getAllRecordsByIdUser(Long id) {
-        List<records> itemList = repository.getAllRecordsByIdUser(id);
+    public List<records> getAllRecordsByIdUser(Long id,Long num) {
+        List<records> itemList = repository.getAllRecordsByIdUser(id,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -63,8 +63,8 @@ public class recordService {
             return new ArrayList<records>();
         }
     }
-        public List<records> searchRecord(Long owner_id,String name) {
-        List<records> itemList = repository.searchRecord(owner_id,name);
+        public List<records> searchRecord(Long owner_id,String name,Long num) {
+        List<records> itemList = repository.searchRecord(owner_id,name,num);
 
         if (itemList.size() > 0) {
             return itemList;

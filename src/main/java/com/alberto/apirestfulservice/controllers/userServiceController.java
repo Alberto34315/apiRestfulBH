@@ -52,26 +52,26 @@ public class userServiceController {
         return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "getAllUserLessOwner", notes = "Esta funcion nos devolvera una lista de usuarios que no son amigos de un usuario, mas una respuesta HTTP completa")
+    @ApiOperation(value = "getAllUserLessOwner", notes = "Esta funcion nos devolvera una lista de usuarios que no son amigos de un usuario (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("getAllUserLessOwner/{id}")
-    public ResponseEntity<List<user>> getAllUserLessOwner(@PathVariable("id") Long id) {
-        List<user> list = service.getAllUserLessOwner(id, id);
+    @GetMapping("getAllUserLessOwner/{id}/Limit/{num}")
+    public ResponseEntity<List<user>> getAllUserLessOwner(@PathVariable("id") Long id,@PathVariable("num") Long num) {
+        List<user> list = service.getAllUserLessOwner(id, id,num);
 
         return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "searchUserLessOwner", notes = "Esta funcion nos devolvera una lista de usuarios que no son amigos de un usuario buscanlos por su nombre, mas una respuesta HTTP completa")
+    @ApiOperation(value = "searchUserLessOwner", notes = "Esta funcion nos devolvera una lista de usuarios que no son amigos de un usuario buscanlos por su nombre (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("searchUserLessOwner/{id}/{name}")
-    public ResponseEntity<List<user>> searchUserLessOwner(@PathVariable("id") Long id, @PathVariable("name") String name) {
-        List<user> list = service.searchUserLessOwner(id, id, name);
+    @GetMapping("searchUserLessOwner/{id}/{name}/Limit/{num}")
+    public ResponseEntity<List<user>> searchUserLessOwner(@PathVariable("id") Long id, @PathVariable("name") String name,@PathVariable("num") Long num) {
+        List<user> list = service.searchUserLessOwner(id, id, name,num);
 
         return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
     }
@@ -88,14 +88,27 @@ public class userServiceController {
         return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "searchFriends", notes = "Esta funcion nos devolvera una lista de usuarios que son amigos de un usuario buscanlos por su nombre, mas una respuesta HTTP completa")
+    
+    @ApiOperation(value = "getAllFriendsLimit", notes = "Esta funcion nos devolvera una lista de usuarios que son amigos de un usuario, limitados por filas (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("searchFriends/{id}/{name}")
-    public ResponseEntity<List<user>> searchFriends(@PathVariable("id") Long id, @PathVariable("name") String name) {
-        List<user> list = service.searchFriends(id, name);
+    @GetMapping("getAllFriends/{id}/Limit/{num}")
+    public ResponseEntity<List<user>> getAllFriendsLimit(@PathVariable("id") Long id,@PathVariable("num") Long num) {
+        List<user> list = service.getAllFriendsLimit(id,num);
+
+        return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "searchFriends", notes = "Esta funcion nos devolvera una lista de usuarios que son amigos de un usuario buscanlos por su nombre (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = user.class),
+        @ApiResponse(code = 400, message = "Bad Request"),
+        @ApiResponse(code = 500, message = "Error inesperado del sistema")})
+    @GetMapping("searchFriends/{id}/{name}/Limit/{num}")
+    public ResponseEntity<List<user>> searchFriends(@PathVariable("id") Long id, @PathVariable("name") String name,@PathVariable("num") Long num) {
+        List<user> list = service.searchFriends(id, name,num);
 
         return new ResponseEntity<List<user>>(list, new HttpHeaders(), HttpStatus.OK);
     }

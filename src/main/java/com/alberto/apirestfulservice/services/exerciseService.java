@@ -29,8 +29,8 @@ public class exerciseService {
         }
     }
 
-    public List<exercise> getAllExercisesByIdUser(Long id) {
-        List<exercise> itemList = repository.getAllExercisesByIdUser(id);
+    public List<exercise> getAllExercisesByIdUser(Long id,Long num) {
+        List<exercise> itemList = repository.getAllExercisesByIdUser(id,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -39,8 +39,8 @@ public class exerciseService {
         }
     }
 
-    public List<exercise> getAllExercisesByIdUserAndNotFoundTraining(Long code1) {
-        List<exercise> itemList = repository.getAllExercisesByIdUserAndNotFoundTraining(code1);
+    public List<exercise> getAllExercisesByIdUserAndNotFoundTraining(Long code1,Long num) {
+        List<exercise> itemList = repository.getAllExercisesByIdUserAndNotFoundTraining(code1,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -49,8 +49,8 @@ public class exerciseService {
         }
     }
 
-    public List<exercise> searchAllExercisesByIdUserAndNotFoundTraining(Long code1, String title) {
-        List<exercise> itemList = repository.searchAllExercisesByIdUserAndNotFoundTraining(code1, title);
+    public List<exercise> searchAllExercisesByIdUserAndNotFoundTraining(Long code1, String title,Long num) {
+        List<exercise> itemList = repository.searchAllExercisesByIdUserAndNotFoundTraining(code1, title,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -79,8 +79,8 @@ public class exerciseService {
         }
     }
 
-    public List<exercise> getByTitleFromUser(String title, Long code) {
-        List<exercise> itemList = repository.getByTitleFromUser(title, code);
+    public List<exercise> getByTitleFromUser(String title, Long code,Long num) {
+        List<exercise> itemList = repository.getByTitleFromUser(title, code,num);
 
         if (itemList.size() > 0) {
             return itemList;

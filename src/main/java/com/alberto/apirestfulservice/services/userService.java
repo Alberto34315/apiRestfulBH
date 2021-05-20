@@ -29,8 +29,8 @@ public class userService {
         }
     }
 
-    public List<user> getAllUserLessOwner(Long owner_id1, Long owner_id2) {
-        List<user> itemList = repository.getAllUserLessOwner(owner_id1, owner_id2);
+    public List<user> getAllUserLessOwner(Long owner_id1, Long owner_id2,Long num) {
+        List<user> itemList = repository.getAllUserLessOwner(owner_id1, owner_id2,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -39,8 +39,8 @@ public class userService {
         }
     }
 
-    public List<user> searchUserLessOwner(Long owner_id1, Long owner_id2, String name) {
-        List<user> itemList = repository.searchUserLessOwner(owner_id1, owner_id2, name);
+    public List<user> searchUserLessOwner(Long owner_id1, Long owner_id2, String name,Long num) {
+        List<user> itemList = repository.searchUserLessOwner(owner_id1, owner_id2, name,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -59,8 +59,18 @@ public class userService {
         }
     }
 
-    public List<user> searchFriends(Long owner_id, String name) {
-        List<user> itemList = repository.searchFriends(owner_id, name);
+    public List<user> getAllFriendsLimit(Long owner_id,Long num) {
+        List<user> itemList = repository.getAllFriendsLimit(owner_id,num);
+
+        if (itemList.size() > 0) {
+            return itemList;
+        } else {
+            return new ArrayList<user>();
+        }
+    }
+    
+    public List<user> searchFriends(Long owner_id, String name,Long num) {
+        List<user> itemList = repository.searchFriends(owner_id, name,num);
 
         if (itemList.size() > 0) {
             return itemList;

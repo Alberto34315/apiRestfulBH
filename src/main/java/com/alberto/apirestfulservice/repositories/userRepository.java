@@ -31,6 +31,7 @@ public interface userRepository extends JpaRepository<user, Long> {
      * Devuelve los amigos de un usuario SELECT * from users LEFT JOIN
      * friendship ON users.id = friendship.friend_id WHERE friendship.owner_id =
      * ?1
+     * 
      */
     /**
      * https://stackoverflow.com/questions/20533441/sql-request-display-people-who-are-not-friend
@@ -40,18 +41,21 @@ public interface userRepository extends JpaRepository<user, Long> {
      * != 1;
      */
     // @Query(value = "SELECT id,name,email,pass,avatar from users LEFT JOIN friendship ON users.id = friendship.friend_id WHERE friendship.owner_id != ?1 AND users.id!=?2 AND users.name LIKE %?3%", nativeQuery = true)
-    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON (users.id=friendship.friend_id AND friendship.owner_id = ?1) WHERE friendship.friend_id IS NULL AND users.id != ?2 AND private_count=0", nativeQuery = true)
-    public List<user> getAllUserLessOwner(Long owner_id1, Long owner_id2);
+    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON (users.id=friendship.friend_id AND friendship.owner_id = ?1) WHERE friendship.friend_id IS NULL AND users.id != ?2 AND private_count=0 LIMIT ?3,10", nativeQuery = true)
+    public List<user> getAllUserLessOwner(Long owner_id1, Long owner_id2,Long num);
 
-    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON (users.id=friendship.friend_id AND friendship.owner_id = ?1) WHERE friendship.friend_id IS NULL AND users.id != ?2 AND private_count=0 AND users.name LIKE %?3%", nativeQuery = true)
-    public List<user> searchUserLessOwner(Long owner_id1, Long owner_id2, String name);
+    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON (users.id=friendship.friend_id AND friendship.owner_id = ?1) WHERE friendship.friend_id IS NULL AND users.id != ?2 AND private_count=0 AND users.name LIKE %?3% LIMIT ?4,10", nativeQuery = true)
+    public List<user> searchUserLessOwner(Long owner_id1, Long owner_id2, String name,Long num);
 
     //@Query(value = "SELECT id,name,email,pass,avatar from users LEFT JOIN friendship ON users.id = friendship.friend_id WHERE friendship.owner_id = ?1 AND users.name LIKE %?2%", nativeQuery = true)
     @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON users.id = friendship.friend_id WHERE friendship.owner_id = ?1", nativeQuery = true)
     public List<user> getAllFriends(Long owner_id);
 
-    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON users.id = friendship.friend_id WHERE friendship.owner_id = ?1 AND users.name LIKE %?2%", nativeQuery = true)
-    public List<user> searchFriends(Long owner_id, String name);
+    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON users.id = friendship.friend_id WHERE friendship.owner_id = ?1 LIMIT ?2,10", nativeQuery = true)
+    public List<user> getAllFriendsLimit(Long owner_id,Long num);
+    
+    @Query(value = "SELECT id,name,email,pass,avatar,private_count from users LEFT JOIN friendship ON users.id = friendship.friend_id WHERE friendship.owner_id = ?1 AND users.name LIKE %?2% LIMIT ?3,10", nativeQuery = true)
+    public List<user> searchFriends(Long owner_id, String name,Long num);
 
     @Query(value = "SELECT users.id,users.name,users.email,users.pass,users.avatar,users.private_count FROM users LEFT JOIN favorites ON users.id = favorites.fk_user WHERE favorites.fk_trainings=?1", nativeQuery = true)
     public List<user> getAllUsersByIdTrainingFavorite(Long code);

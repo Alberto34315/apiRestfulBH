@@ -38,8 +38,8 @@ public class trainingService {
         }
     }
 
-    public List<training> getAllTrainingsByIdUser(Long id) {
-        List<training> itemList = repository.getAllTrainingsByIdUser(id);
+    public List<training> getAllTrainingsByIdUser(Long id,Long num) {
+        List<training> itemList = repository.getAllTrainingsByIdUser(id,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -48,8 +48,8 @@ public class trainingService {
         }
     }
 
-    public List<training> getAllTrainingsFromFavorites(Long id) {
-        List<training> itemList = repository.getAllTrainingsFromFavorites(id);
+    public List<training> getAllTrainingsFromFavorites(Long id,Long num) {
+        List<training> itemList = repository.getAllTrainingsFromFavorites(id,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -58,8 +58,8 @@ public class trainingService {
         }
     }
 
-    public List<training> getAllTrainingsByIdUserIsPublished(Long id) {
-        List<training> itemList = repository.getAllTrainingsByIdUserIsPublished(id);
+    public List<training> getAllTrainingsByIdUserIsPublished(Long id,Long num) {
+        List<training> itemList = repository.getAllTrainingsByIdUserIsPublished(id,num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -88,8 +88,8 @@ public class trainingService {
         }
     }
 
-    public List<training> getByTitleFromUser(String title, Long code) {
-        List<training> itemList = repository.getByTitleFromUser(title, code);
+    public List<training> getByTitleFromUser(String title, Long code,Long num) {
+        List<training> itemList = repository.getByTitleFromUser(title, code, num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -98,8 +98,8 @@ public class trainingService {
         }
     }
 
-    public List<training> searchTrainingsFromFavorites(Long code, String title) {
-        List<training> itemList = repository.searchTrainingsFromFavorites(code, title);
+    public List<training> searchTrainingsFromFavorites(Long code, String title,Long num) {
+        List<training> itemList = repository.searchTrainingsFromFavorites(code, title, num);
 
         if (itemList.size() > 0) {
             return itemList;
@@ -108,8 +108,8 @@ public class trainingService {
         }
     }
 
-    public List<training> getTrainingOfFriendsByTitle(String title, Long code) {
-        List<training> itemList = repository.getTrainingOfFriendsByTitle(title, code);
+    public List<training> getTrainingOfFriendsByTitle(String title, Long code,Long num) {
+        List<training> itemList = repository.getTrainingOfFriendsByTitle(title, code, num);
 
         if (itemList.size() > 0) {
             return itemList;

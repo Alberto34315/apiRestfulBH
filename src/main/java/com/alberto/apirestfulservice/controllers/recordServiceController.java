@@ -63,14 +63,14 @@ public class recordServiceController {
         return new ResponseEntity<records>(entity, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "getAllRecordsByIdUser", notes = "Esta funcion nos devolvera una lista de entrenamientos realizados por el id del usuario que lo creo, mas una respuesta HTTP completa")
+    @ApiOperation(value = "getAllRecordsByIdUser", notes = "Esta funcion nos devolvera una lista de entrenamientos realizados por el id del usuario que lo creo (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<records>> getAllRecordsByIdUser(@PathVariable("id") Long id) throws RecordNotFoundException {
-        List<records> list = service.getAllRecordsByIdUser(id);
+    @GetMapping("/user/{id}/Limit/{num}")
+    public ResponseEntity<List<records>> getAllRecordsByIdUser(@PathVariable("id") Long id, @PathVariable("num") Long num) throws RecordNotFoundException {
+        List<records> list = service.getAllRecordsByIdUser(id,num);
 
         return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
     }
@@ -87,14 +87,14 @@ public class recordServiceController {
         return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "searchRecord", notes = "Esta funcion nos devolvera una lista de entrenamientos realizados buscanlos por su nombre, mas una respuesta HTTP completa")
+    @ApiOperation(value = "searchRecord", notes = "Esta funcion nos devolvera una lista de entrenamientos realizados buscanlos por su nombre (El num es la posicion de la fila en la que quieres que empieze a listar. Lista de 10 en 10), mas una respuesta HTTP completa")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK. El recurso se obtiene correctamente", response = records.class),
         @ApiResponse(code = 400, message = "Bad Request"),
         @ApiResponse(code = 500, message = "Error inesperado del sistema")})
-    @GetMapping("searchRecord/{id}/{title}")
-    public ResponseEntity<List<records>> searchRecord(@PathVariable("id") Long id, @PathVariable("title") String title) {
-        List<records> list = service.searchRecord(id, title);
+    @GetMapping("searchRecord/{id}/{title}/Limit/{num}")
+    public ResponseEntity<List<records>> searchRecord(@PathVariable("id") Long id, @PathVariable("title") String title, @PathVariable("num") Long num) {
+        List<records> list = service.searchRecord(id, title,num);
 
         return new ResponseEntity<List<records>>(list, new HttpHeaders(), HttpStatus.OK);
     }
